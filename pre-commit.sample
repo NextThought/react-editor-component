@@ -1,0 +1,19 @@
+#!/bin/sh
+FILES=`git diff --cached --name-only | grep -i ".js$"`
+
+# if SourceTree (or your fav GUI Git interface) errors saying it cannot find
+# jshint or node, you will need update the sub-shell's path: (uncomment this block)
+#
+# if ! which jshint &>/dev/null ; then
+# 	PATH=/opt/local/bin/:$PATH; # path to bin directory where node is.
+# 	PATH=/Users/<username>/.npm/bin/:$PATH; # path to bin directory where jsxhint is.
+# fi
+
+for f in $FILES
+do
+	if [ ! -f $f ]; then  #file was deleted
+		continue
+	fi
+
+	jshint $(pwd)/$f || exit 1;
+done

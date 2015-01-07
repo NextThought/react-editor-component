@@ -1,0 +1,55 @@
+{
+  "name": "react-rich-text-editor",
+  "version": "1.0.0",
+  "description": "A Rich Text Editor for ReactJS",
+  "main": "src/index.js",
+  "dist": "dist/",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NextThought/react-rich-text-editor.git"
+  },
+  "keywords": [
+    "react",
+    "rte",
+    "rich",
+    "text",
+    "editor",
+    "component"
+  ],
+  "author": "nextthought",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/NextThought/react-rich-text-editor/issues"
+  },
+  "homepage": "https://github.com/NextThought/react-rich-text-editor",
+  "peerDependencies": {
+    "react": "^0.12.2"
+  },
+  "devDependencies": {
+    "6to5": "^2.7.4",
+    "6to5-loader": "^1.0.0",
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-karma": "^0.9.0",
+    "grunt-webpack": "^1.0.8",
+    "jasmine-core": "^2.1.2",
+    "jshint-log-reporter": "^1.0.8",
+    "karma": "^0.12.28",
+    "karma-chrome-launcher": "^0.1.5",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-html-reporter": "^0.2.4",
+    "karma-jasmine": "^0.3.1",
+    "karma-junit-reporter": "^0.2.2",
+    "karma-mocha-reporter": "^0.3.1",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-script-launcher": "^0.1.0",
+    "karma-sourcemap-loader": "^0.3.0",
+    "karma-webpack": "^1.3.1",
+    "load-grunt-tasks": "^1.0.0",
+    "webpack": "^1.4.15",
+    "webpack-dev-server": "^1.6.6"
+  }
+}
