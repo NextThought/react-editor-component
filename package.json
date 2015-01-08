@@ -2,7 +2,7 @@
   "name": "react-rich-text-editor",
   "version": "1.0.0",
   "description": "A Rich Text Editor for ReactJS",
-  "main": "src/index.js",
+  "main": "index.js",
   "dist": "dist/",
   "scripts": {
     "test": "grunt test"
