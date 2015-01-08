@@ -1,8 +1,10 @@
 'use strict';
 
+var wpcfg = require('./webpack.config');
+
 module.exports = function(grunt) {
 	var pkgConfig = grunt.file.readJSON('package.json');
-	
+
 	// Let *load-grunt-tasks* require everything
 	require('load-grunt-tasks')(grunt);
 	grunt.initConfig({
@@ -26,17 +28,26 @@ module.exports = function(grunt) {
 			]
 	    },
 
-		webpack: require('./webpack.config'),
+		webpack: wpcfg,
 
 		'webpack-dev-server': {
 			options: {
-				webpack: require('./webpack.config'),
+				webpack: wpcfg,
 				publicPath: '/'
 			},
 			start: {
+				watch: true,
 				keepAlive: true,
+				port: 8000,
+				contentBase: __dirname + '/tests/app/',
 				webpack: {
-					debug: true
+					debug: true,
+					publicPath: '/',
+					entry: __dirname + '/tests/app/index.js',
+					output: {
+						path: '/tests/app/',
+						filename: "index.js",
+					},
 				}
 			}
 		}
