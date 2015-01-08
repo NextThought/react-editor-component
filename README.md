@@ -1,5 +1,5 @@
 #A Rich text editor ReactJS component
-###### This component is _heavily_ inspired by: frikille/react-rte and https://speakerdeck.com/frikille/a-rich-text-editor-with-react
+###### This component is _heavily_ inspired by: [frikille/react-rte](//github.com/frikille/react-rte) and https://speakerdeck.com/frikille/a-rich-text-editor-with-react
 
 ---
 Progress:
