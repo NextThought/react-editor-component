@@ -47,16 +47,23 @@ export default React.createClass({
 
 
 	addKeysToTags (content, previousLevel) {
-		(content.childNodes || []).map((item, index) => {
-			if (item.nodeType !== 3) {//3 === Node.TEXT_NODE
-				let key = previousLevel + '.' + index;
-				item.key = key;
-				this.addKeysToTags(item, key);
-			}
-			return item;
-		});
+		if (!content) {
+			return content;
+		}
 
 		content.key = previousLevel;
+
+		if (content.childNodes) {
+			content.childNodes.map((item, index) => {
+				if (item.nodeType !== 3) {//3 === Node.TEXT_NODE
+					let key = previousLevel + '.' + index;
+					item.key = key;
+					this.addKeysToTags(item, key);
+				}
+				return item;
+			});
+		}
+
 		return content;
 	},
 
@@ -131,6 +138,10 @@ export default React.createClass({
 		var range = document.createRange();
 
 		var el = editorNode.querySelector("[data-tag-key='" + this.state.selectionElTagKey + "']");
+		if (!el) {
+			console.warn('Could not update selection because could not get the selectionElTagKey');
+			return;
+		}
 
 		if (this.state.selectionStart === 'last-character') {
 			el = el.lastChild;
@@ -154,20 +165,29 @@ export default React.createClass({
 
 
 	renderEditorContent (node) {
-		var {childNodes, tagName, key} = node;
+		var {childNodes, tagName, key} = (node || {});
 
-		var args = [{ 'data-tag-key': key }];
+		var args = [{ 'data-tag-key': key || 'root' }];
 
-		if (node.tagName === 'br') {//just check for unary/childless (support <img/> tags)
+		if (tagName === 'br') {//just check for unary/childless (support <img/> tags)
 			args = [];//unary tags can have props... todo: just filter out tag-key?
 		}
 
 		else if (childNodes){
 			//render the children!
-			args.push(childNodes.map(n=>
+			let c = childNodes.map(n =>
 				n.nodeType === 3 ?//if node is a Node.TEXT_NODE,
 					getNodeText(n) :// then return the textContent,
-					this.renderJsonToHtmlTwo(n)));//otherwise, just recurse
+					this.renderEditorContent(n));//otherwise, just recurse
+			let textNodeCount = c.filter(n=>typeof n === 'string').length;
+			if (textNodeCount === c.length) {
+				c = c.join('');
+			}
+			else if (textNodeCount !== 0){
+				console.warn('React will create spans our data structure does not know about because there are mixed text/element nodes in this elements children');
+			}
+
+			args.push(c);
 		}
 
 		if (!tagName) {

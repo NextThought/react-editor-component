@@ -1,6 +1,7 @@
 import * as React from 'react/addons';
 import Editor from 'Editor';
 
-var app = React.createFactory(Editor);
-
-React.render(app({data: {}}), document.getElementById('content'));
+React.render(
+	React.createElement(Editor),
+	document.getElementById('content')
+);

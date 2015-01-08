@@ -19,6 +19,30 @@ export function isBackspaceKey(c) {
 
 export default {
 
+    handleCharacterChange (isAppending, character) {
+        let selModel = this.getSelectionModel();
+        var normalTextOnly = selModel.normalTextOnly ||
+                                        isAppending ||
+                                        getDomNode(selModel.nodes[0]).firstChild.textContent.length !== 1;//this needs abstracting
+
+        var handlerName = ['handleCharacterChangeFor'];
+
+        console.log(selModel);
+
+        handlerName.push(selModel.multilineSelection ? 'Multiline' : 'SingleLine');
+        handlerName.push(normalTextOnly ? 'NormalText' : 'FormattedText');
+
+        handlerName = handlerName.join('');
+
+        if (!this[handlerName]) {
+            console.error('No handler: %s', handlerName);
+            return;
+        }
+
+        return this[handlerName](selModel, isAppending, character);
+    },
+
+
     handleEnterKey () {
         let selModel = this.getSelectionModel();
         var handlerName = ['handleEnterKeyFor'];
@@ -310,7 +334,7 @@ export default {
 			}
 		}
         else {
-			if (firstChild.data.length === 1 && isBackspace) {
+			if (firstChild.textContent.length === 1 && isBackspace) {
 
                 config = buildConfigObject(tagKeyArray, {
                     nodeType: { $set: 1 },
@@ -361,7 +385,7 @@ export default {
 
 		if (currentIndex !== 0) {
 			tagKey = getNodeTagKey(getDomNode(selectedNode).previousSibling);
-			selectionStart = getDomNode(selectedNode).previousSibling.firstChild.data.length;
+			selectionStart = getDomNode(selectedNode).previousSibling.firstChild.textContent.length;
 
 		} else {
 			tagKey = getNodeTagKey(parent.parentNode);
@@ -489,30 +513,6 @@ export default {
 	},
 
 
-	handleCharacterChange (isAppending, character) {
-		var selectionModel = this.getSelectionModel();
-
-		console.log(selectionModel);
-
-		if (selectionModel.multilineSelection) {
-			if (selectionModel.normalTextOnly) {
-				return this.handleCharacterChangeForMultilineNormalText(selectionModel, isAppending, character);
-			}
-
-			return this.handleCharacterChangeForMultilineFormattedText(selectionModel, isAppending, character);
-		}
-
-
-		if (selectionModel.normalTextOnly || isAppending || getDomNode(selectionModel.nodes[0]).firstChild.data.length !== 1) {
-
-			return this.handleCharacterChangeForSingleLineNormalText(selectionModel, isAppending, character);
-		}
-
-		return this.handleCharacterChangeForSingleLineFormattedText(selectionModel, isAppending, character);
-
-	},
-
-
 	appendText (character, position, length) {
 		return {
 			textContent: {
@@ -550,8 +550,8 @@ export default {
 
 
 	mergeNodes (nodes, character) {
-		var textFirst = getDomNode(nodes[0]).firstChild.data.substring(0, nodes[0].offset);
-        var textSecond = getDomNode(nodes[1]).firstChild.data.substring(nodes[1].offset);
+		var textFirst = getDomNode(nodes[0]).firstChild.textContent.substring(0, nodes[0].offset);
+        var textSecond = getDomNode(nodes[1]).firstChild.textContent.substring(nodes[1].offset);
 
 		if (isBackspaceKey(character)) {
 			character = '';

@@ -31,7 +31,7 @@ export function getNodeText(n) {
 }
 
 export function getTagKeyArray(tagKey, ...add) {
-	var a = tagKey.split('.').splice(1).map(i=>parseInt(i, 10));
+	var a = (tagKey||'').split('.').splice(1).map(i=>parseInt(i, 10));
 	if (add.length) {
 		a.push(...add);
 	}
