@@ -7,7 +7,8 @@ import {
 		getNodeTagName
     } from './common';
 
-export var Formatting = {
+
+export default {
 	applyBoldFormat () { return this.applyFormat('b'); },
 
 	applyItalicFormat () { return this.applyFormat('i'); },

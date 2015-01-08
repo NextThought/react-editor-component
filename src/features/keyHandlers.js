@@ -17,7 +17,7 @@ export function isBackspaceKey(c) {
     return c === 'Backspace' || c === 'Delete';
 }
 
-export var KeyHandlers = {
+export default {
 
     handleEnterKey () {
         let selModel = this.getSelectionModel();

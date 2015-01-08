@@ -1,5 +1,5 @@
 
-export var Selection = {
+export default {
 	/**
 	 * Return the selection the normalised selection model:
 	 *	- nodes are sorted in ascending order

@@ -2,7 +2,7 @@ import * as React from 'react/addons';
 
 import {ELEMENT_NAMES, getNodeIndex} from './common';
 
-export var Heading = {
+export default {
 
     applyHeadingOne () { return this.applyHeading('h1'); },
 

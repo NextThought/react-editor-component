@@ -1,6 +1,6 @@
 import * as React from 'react/addons';
-import Headings from './features/headings';
-import {KeyHandlers, isBackspaceKey} from './features/keyHandlers';
+import Headings from './features/heading';
+import KeyHandlers, {isBackspaceKey} from './features/keyHandlers';
 import Selection from './features/selection';
 import Formatting from './features/formatting';
 import {
@@ -153,7 +153,7 @@ export default React.createClass({
 	},
 
 
-	renderContent (node) {
+	renderEditorContent (node) {
 		var {childNodes, tagName, key} = node;
 
 		var args = [{ 'data-tag-key': key }];
@@ -162,7 +162,7 @@ export default React.createClass({
 			args = [];//unary tags can have props... todo: just filter out tag-key?
 		}
 
-		else {
+		else if (childNodes){
 			//render the children!
 			args.push(childNodes.map(n=>
 				n.nodeType === 3 ?//if node is a Node.TEXT_NODE,
@@ -170,7 +170,11 @@ export default React.createClass({
 					this.renderJsonToHtmlTwo(n)));//otherwise, just recurse
 		}
 
-		return React.createElement(tagName, ...args);
+		if (!tagName) {
+			console.warn ('The node\s tagName is missing! %o', node);
+		}
+
+		return React.createElement(tagName || 'p', ...args);
 	},
 
 
@@ -188,11 +192,11 @@ export default React.createClass({
 					<button onClick={this.applyStriketroughFormat}>S</button>
 				</div>
 
-				<div ref="editor" style={{"white-space": "pre"}}
+				<div ref="editor" style={{whiteSpace: "pre", minHeight: "1em"}}
 					contentEditable={true}
 					onKeyPress={this.onKeyPress}
 					onKeyDown={this.onKeyDown}>
-					{this.renderContent(this.state.content)}
+					{this.renderEditorContent(this.state.content)}
 				</div>
 			</div>
 		);
