@@ -1,6 +1,6 @@
 import * as React from 'react/addons';
 import Headings from './features/heading';
-import KeyHandlers, {isBackspaceKey} from './features/keyHandlers';
+import KeyHandlers, {isBackspaceKey} from './features/key-handlers';
 import Selection from './features/selection';
 import Formatting from './features/formatting';
 import {
