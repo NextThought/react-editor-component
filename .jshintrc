@@ -1,6 +1,6 @@
 {
     "node": true,
-    "browser": false,
+    "browser": true,
     "esnext": true,
     "strict": false,//ES6 modules are strict
     "bitwise": true,
@@ -23,6 +23,5 @@
     "undef": true,
     "unused": true,
     "debug": true,
-    "shadow": true,
-    "predef": [ "Promise" ]
+    "shadow": true
 }
