@@ -1,10 +1,9 @@
 #A Rich text editor ReactJS component
-###### This component is _heavily_ inspired by: [frikille/react-rte][0] and https://speakerdeck.com/frikille/a-rich-text-editor-with-react
-
 
 ---
 Progress:
-- [x] Initial Editor (Starting from frikille/react-rte - javascript only parts)
+- [x] Initial Editor
+- [ ] Get the editor's base functionality working in React 0.12.x
 - [ ] The interface will be: `<Editor value={...} onChange={}/>`
 - [ ] There will be optional `render{Bottom|Top}Toolbar` callback props that will let the toolbars to be costomized. (added to, or substituted)
 - [ ] Copy/Paste
@@ -38,6 +37,5 @@ $ grunt
 ```
 
 
-   [0]: //github.com/frikille/react-rte
    [1]: //webpack.github.io
    [2]: //6to5.org
