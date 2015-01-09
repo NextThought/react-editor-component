@@ -517,17 +517,18 @@ export default {
 		return {
 			textContent: {
 				$apply: function(currentValue){
-					currentValue = (currentValue || '').split('');
-                    if (currentValue.length === 0) {
-						currentValue.push(character);
-					} else {
-						currentValue.splice(
-                            position == null ? currentValue.length: position,
+					var v = (currentValue || '').split('');
+                    if (v.length === 0) {
+						v.push(character);
+					}
+                    else {
+						v.splice(
+                            position == null ? v.length: position,
                             length || 0,
                             character
                         );
 					}
-					return currentValue.join('');
+					return v.join('');
 				}
 			}
 		};
