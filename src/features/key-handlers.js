@@ -69,7 +69,7 @@ export default {
         var newNode;
 
 		if (selectedNode.selectionStart === selectedNode.selectionEnd &&
-            selectedNode.selectionStart === selectedNode.node.innerText.length) {
+            selectedNode.selectionStart === text.length) {
 
 			newNode = {
 				tagName: 'p',
@@ -549,8 +549,8 @@ export default {
 
 
 	mergeNodes (nodes, character) {
-		var textFirst = getDomNode(nodes[0]).firstChild.textContent.substring(0, nodes[0].offset);
-        var textSecond = getDomNode(nodes[1]).firstChild.textContent.substring(nodes[1].offset);
+		var textFirst = getNodeText(getDomNode(nodes[0]).firstChild).substring(0, nodes[0].offset);
+        var textSecond = getNodeText(getDomNode(nodes[1]).firstChild).substring(nodes[1].offset);
 
 		if (isBackspaceKey(character)) {
 			character = '';
