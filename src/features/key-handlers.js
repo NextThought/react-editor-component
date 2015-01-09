@@ -150,7 +150,7 @@ export default {
 
         // removing parent next sibling nodes if array length > 1
 		for (let i = 0, to = tagKeyArray.length - 2; i <= to; ++i) {
-			let a = tagKeyArray.slice(0).splice(0, i + 1);
+			let a = tagKeyArray.slice(0, i + 1);
 
 			newTopLevelNode1 = reactUpdate(
                 newTopLevelNode1,
@@ -471,7 +471,7 @@ export default {
 			[newNode1] = this.handleEnterKeyForSingleLineFormattedText({ nodes: [node0] }, true);
 
 			if (isAppending) {
-				tagKeyArray = getTagKeyArray(node0, 0).splice(1);
+				tagKeyArray = getTagKeyArray(node0, 0).slice(1);
 
 				newNode1 = reactUpdate(newNode1,
                     buildConfigObject(tagKeyArray,
