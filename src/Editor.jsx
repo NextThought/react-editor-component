@@ -8,6 +8,7 @@ import {
 	getNodeTagName
 } from './features/common';
 
+
 export default React.createClass({
 	displayName: 'Editor',
 
@@ -34,7 +35,15 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			data: {}
+			data: {
+				nodeType: 1,
+				tagName: 'div',
+				childNodes: [{
+					nodeType: 1,
+					tagName: 'p',
+					childNodes: ['']
+				}]
+			}
 		};
 	},
 
@@ -212,7 +221,7 @@ export default React.createClass({
 					<button onClick={this.applyStriketroughFormat}>S</button>
 				</div>
 
-				<div ref="editor" style={{whiteSpace: "pre", minHeight: "1em"}}
+				<div ref="editor" style={{whiteSpace: "pre", minHeight: "10em", border: '1px solid #ccc'}}
 					contentEditable={true}
 					onKeyPress={this.onKeyPress}
 					onKeyDown={this.onKeyDown}>
