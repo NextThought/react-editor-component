@@ -1,5 +1,5 @@
 #A Rich text editor ReactJS component
-###### This component is _heavily_ inspired by: [frikille/react-rte](0) and https://speakerdeck.com/frikille/a-rich-text-editor-with-react
+###### This component is _heavily_ inspired by: [frikille/react-rte][0] and https://speakerdeck.com/frikille/a-rich-text-editor-with-react
 
 
 ---
@@ -12,13 +12,13 @@ Progress:
 
 
 ##### File naming conventions:
-- Mixins and Partials: lower-case-hyphenated.js (in a sub-directory grouping realted ones together)
-- Classes and Components: PascalNameCase.js(x)
+- Mixins and Partials: `lower-case-hyphenated.js` (in a sub-directory grouping realted ones together)
+- Classes and Components: `PascalNameCase.js(x)`
 
 ### Development
-This project uses ES6 JavaScript. ([WebPack](1) bundles and [6to5](2) transpiles)
+This project uses ES6 JavaScript. ([WebPack][1] bundles and [6to5][2] transpiles)
 
-Please do not checkin dist bundles. This project is intended to be included into a larger project using a packager like [WebPack](1).
+Please do not checkin dist bundles. This project is intended to be included into a larger project using a packager like [WebPack][1].
 
 
 ##### Setup:
@@ -38,6 +38,6 @@ $ grunt
 ```
 
 
-[0]: //github.com/frikille/react-rte
-[1]: //webpack.github.io
-[2]: //6to5.org
+   [0]: //github.com/frikille/react-rte
+   [1]: //webpack.github.io
+   [2]: //6to5.org
