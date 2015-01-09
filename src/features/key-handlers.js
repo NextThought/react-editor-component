@@ -539,10 +539,9 @@ export default {
 		return {
 			textContent: {
 				$apply: function(currentValue){
-					return currentValue
-                        .split('')
-                        .splice(start, length)
-                        .join('');
+					var v = currentValue.split('');
+                    v.splice(start, length);
+                    return v.join('');
 				}
 			}
 		};
