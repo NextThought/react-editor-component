@@ -3,11 +3,11 @@
 ---
 Progress:
 - [x] Initial Editor
-- [ ] Get the editor's base functionality working in React 0.12.x
+- [x] Get the editor's base functionality working in React 0.12.x
 - [ ] The interface will be: `<Editor value={...} onChange={}/>`
 - [ ] There will be optional `render{Bottom|Top}Toolbar` callback props that will let the toolbars to be costomized. (added to, or substituted)
 - [ ] Copy/Paste
-- [ ] Undo/Redo
+- [x] Undo/Redo
 
 
 ##### File naming conventions:
