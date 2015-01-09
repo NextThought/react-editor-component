@@ -14,6 +14,20 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black"/>
 	<meta name="apple-mobile-web-app-title" content="nextthought app"/>
 	<title>NextThought</title>
+	<style>
+		.bold button[data-format=bold],
+		.italic button[data-format=italic],
+		.underline button[data-format=underline] {
+			background: blue;
+		}
+
+		[contenteditable] {
+			white-space: pre;
+			border: 1px solid #ccc;
+			min-height: 1rem;
+			padding: 0.5em;
+		}
+	</style>
 </head>
 <body>
 	<div id="content"></div>
