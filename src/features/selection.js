@@ -1,4 +1,15 @@
 
+function normalize(node){
+	return (!node.tagName) ? node.parentNode : node;
+}
+
+function onlyHasTextNodes(node) {
+	node = normalize(node);
+	//The element contains only text nodes...
+	return Array.from(node.childNodes)
+				.filter(n=>n.nodeType!==3).length === 0;
+}
+
 export default {
 	/**
 	 * Return the selection the normalised selection model:
@@ -9,8 +20,8 @@ export default {
 	getSelectionModel(){
     	var selection = global.getSelection();
     	var {anchorOffset, focusOffset, anchorNode, focusNode} = selection;
-    	var anchor = this.normaliseSelectionNode(anchorNode);
-    	var focus = this.normaliseSelectionNode(focusNode);
+    	var anchor = normalize(anchorNode);
+    	var focus = normalize(focusNode);
     	var nodes;
 
 		var markAsBegining = x => {
@@ -27,7 +38,7 @@ export default {
     		return {
         		multilineSelection: false,
         		type: selection.type,
-        		normalTextOnly: this.hasNodeNormalTextOnly(anchor),
+        		normalTextOnly: onlyHasTextNodes(anchor),
         		nodes: [{
         			node: anchor,
         			tagKey: anchor.getAttribute('data-tag-key'),
@@ -49,7 +60,7 @@ export default {
     		}
 		];
 
-		nodes.sort((a, b) => (a.tagKey <= b.tagKey) ? -1 : 1);
+		nodes.sort((a, b)=>(a.tagKey <= b.tagKey) ? -1 : 1);
 
 		markAsBegining(nodes[0]);
 		markAsEnding(nodes[1]);
@@ -57,18 +68,8 @@ export default {
 		return {
     		multilineSelection: true,
     		type: selection.type,
-    		normalTextOnly: this.hasNodeNormalTextOnly(anchor) && this.hasNodeNormalTextOnly(focus),
+    		normalTextOnly: onlyHasTextNodes(anchor) && onlyHasTextNodes(focus),
     		nodes: nodes
 		};
-	},
-
-
-	normaliseSelectionNode(node){
-    	return (!node.tagName) ? node.parentNode : node;
-	},
-
-
-	hasNodeNormalTextOnly(node) {
-    	return (node.parentNode.getAttribute('data-tag-key') === 'root');
 	}
 };
