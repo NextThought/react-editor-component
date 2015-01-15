@@ -40,8 +40,36 @@ export default {
 	},
 
 
+	componentDidMount () {
+		this.setState({_previousValue: this.getValue()});
+	},
+
+
 	wasInteractedWith () {
 		clearTimeout(this._interactionTimeout);
-		this._interactionTimeout = setTimeout(()=>this.forceUpdate(), 100);
+		this._interactionTimeout = setTimeout(()=>{
+			if (this.isMounted()) {
+				let curr = this.getValue();
+				let prev = this.state._previousValue;
+
+				if (prev !== curr) {
+					this.props.onChange(prev, curr);
+					this.setState({_previousValue: curr});
+				}
+			}
+
+		}, 100);
+	},
+
+
+	getEditorNode () {
+		var {editor} = this.refs;
+		return editor && editor.isMounted() && editor.getDOMNode();
+	},
+
+
+	getValue () {
+
+		return this.parseValue(this.getEditorNode().innerHTML);
 	}
 };

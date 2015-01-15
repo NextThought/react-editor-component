@@ -20,8 +20,12 @@ export default {
 
 
 	onSetFormat (e) {
+		e.preventDefault();
+		e.stopPropagation();
+
 		var style = e.target.getAttribute('data-format');
 		this.applyFormat(style);
+		this.wasInteractedWith();
 	},
 
 	applyFormat (style) {

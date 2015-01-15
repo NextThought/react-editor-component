@@ -9,7 +9,7 @@ export default {
 
 
 	onProcessPaste () {
-		console.log(arguments);
+		this.wasInteractedWith();
 	}
 
 };
