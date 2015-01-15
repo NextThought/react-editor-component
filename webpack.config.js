@@ -24,7 +24,7 @@ exports = module.exports = {
 
 	module: {
 		loaders: [
-			{ test: /\.js(x?)$/, /*exclude: /node_modules/,*/ loader: '6to5' },
+			{ test: /\.js(x?)$/, exclude: /node_modules/, loader: '6to5' },
 			{ test: /\.json$/, loader: 'json' }
 		]
 	}

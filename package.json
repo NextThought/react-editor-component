@@ -1,5 +1,5 @@
 {
-  "name": "react-rich-text-editor",
+  "name": "react-editor-component",
   "version": "1.0.0",
   "description": "A Rich Text Editor for ReactJS",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/NextThought/react-rich-text-editor.git"
+    "url": "https://github.com/NextThought/react-editor-component.git"
   },
   "keywords": [
     "react",
@@ -22,9 +22,9 @@
   "author": "nextthought",
   "license": "Apache 2.0",
   "bugs": {
-    "url": "https://github.com/NextThought/react-rich-text-editor/issues"
+    "url": "https://github.com/NextThought/react-editor-component/issues"
   },
-  "homepage": "https://github.com/NextThought/react-rich-text-editor",
+  "homepage": "https://github.com/NextThought/react-editor-component",
   "peerDependencies": {
     "react": "^0.12.2"
   },
