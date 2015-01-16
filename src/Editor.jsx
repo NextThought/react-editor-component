@@ -48,6 +48,8 @@ export default React.createClass({
 
 
 	shouldComponentUpdate (/*nextProps, nextState*/) {
+		//If there is a cursor/selection within the
+		// editor, we do NOT want to update.
 		return !this.hasSelection();
 	},
 
