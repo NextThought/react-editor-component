@@ -58,7 +58,7 @@ export default {
 				}
 			}
 
-		}, 100);
+		}, 500);
 	},
 
 
@@ -69,7 +69,6 @@ export default {
 
 
 	getValue () {
-
 		return this.parseValue(this.getEditorNode().innerHTML);
 	}
 };
