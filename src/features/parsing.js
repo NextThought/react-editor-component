@@ -117,17 +117,20 @@ function prepareValue (node, onPrepareValueChunk) {
 	//Sanitize some new line stuff that various browsers produce.
 	//See http://stackoverflow.com/a/12832455
 	// and http://jsfiddle.net/sathyamoorthi/BmTNP/5/
+
 	var out = [];
-	var elements = Array.from(node.querySelectorAll('[contenteditable] > *'));
+	var elements = Array.from(node.childNodes);
 
-	elements.forEach(div => {
+	var buffer = [];
+
+
+	function parseAndAdd(el) {
+		let {nodeType} = el;
+		let html = el[nodeType === 3 ? 'textContent' : 'innerHTML' ] || '';
 		try {
-			//don't let manipulations here effect the dom
-			let dom = div.cloneNode(true);
-			let html = dom.innerHTML || '';
-
 			if (onPrepareValueChunk) {
-				html = onPrepareValueChunk(html, dom);
+				//don't let manipulations here effect the dom
+				html = onPrepareValueChunk(html, el.cloneNode(true));
 			}
 
 			let parsed = html.replace(REGEX_INITIAL_CHAR, '');
@@ -140,7 +143,45 @@ function prepareValue (node, onPrepareValueChunk) {
 		catch (er) {
 			console.warn('Oops, ' + er.message);
 		}
+	}
+
+	var inlineTags = /^(a|b|i|img|em|u|span|strong)$/;
+
+	function isInlineNode(node) {
+		var {nodeType, tagName} = node;
+		return nodeType === 3 || (nodeType === 1 && inlineTags.test(tagName));
+	}
+
+	function maybeFlushBuffer() {
+		if (buffer.length) {
+			let div = document.createElement('div');
+			buffer.forEach(e=>div.appendChild(e.cloneNode(true)));
+			buffer = [];
+
+			parseAndAdd(div);
+		}
+	}
+
+
+	elements.forEach(el => {
+		//Queue up inline elements to push into their own div.
+		if (isInlineNode(el)) {
+			buffer.push(el);
+			return;//short circut or we'd just put every inline element in a div...
+		}
+
+		//on this iteration, flush the buffer (because we aren't an inline element,
+		// `el` is a block element so we need to move the inline elements in the
+		// buffer into a div before we process `el`)
+		maybeFlushBuffer();
+
+		// Process el.
+		parseAndAdd(el);
+
 	});
+
+	// Don't forget about dangling inline elements...
+	maybeFlushBuffer();
 
 	return out;
 }

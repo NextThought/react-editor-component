@@ -55,6 +55,7 @@ export default {
 				let prev = getVal(this.state._previousValue);
 
 				if (prev !== curr) {
+					console.log('$o %o', prev, curr);
 					this.props.onChange(prev, curr);
 					this.setState({_previousValue: curr});
 				}
