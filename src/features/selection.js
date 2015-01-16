@@ -34,6 +34,11 @@ function isCompletelyWithin(rangeA, rangeB) {
 }
 
 
+// function serializeNodePath (node, root) {
+// 	var nodeIndex = n => n;
+//
+// }
+
 
 export default {
 
@@ -41,7 +46,7 @@ export default {
 		if (!window.getSelection) {
 			console.warn('Unsupported (Legacy) Selection Model');
 			return null;
-			}
+		}
 
 		var range = null;
 		var sel = window.getSelection();
@@ -49,8 +54,9 @@ export default {
 			range = sel.getRangeAt(0);
 		}
 
-		if (range) {
-		}
+		// if (range) {
+		// 	console.log(serializeNodePath(range.startContainer), this.getEditorNode());
+		// }
 
 
 		return range;
@@ -59,10 +65,19 @@ export default {
 
 	restoreSelection (range) {
 		if (range && window.getSelection) {
-				let sel = window.getSelection();
-				sel.removeAllRanges();
-				sel.addRange(range);
-			}
+			let sel = window.getSelection();
+			sel.removeAllRanges();
+			sel.addRange(range);
+		}
+	},
+
+
+	clearSelection () {
+		if (!this.hasSelection()) {
+			return; //lets not be destructive.
+		}
+
+		window.getSelection().removeAllRanges();
 	},
 
 
@@ -89,7 +104,7 @@ export default {
 		var selectionRange = this.getSelection();
 		if (!this.isMounted() || !selectionRange) {
 			return false;
-	}
+		}
 
 		var node = this.getEditorNode();
 		var containerRange = document.createRange();
