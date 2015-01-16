@@ -1,10 +1,10 @@
 
 var events = [
-	'onClick',
-	'onMouseDown',
-	'onMouseUp',
-	'onTouchEnd',
-	'onTouchMove',
+	'Click',
+	'MouseDown',
+	'MouseUp',
+	'TouchEnd',
+	'TouchMove',
 ];
 
 
@@ -12,18 +12,18 @@ export default {
 
 	componentWillMount () {
 		var fn = this.__onTouched;
-		var map = (x, e)=>{ x[e]=fn; return x;};
+		var map = (x, e)=>{ x[`on${e}`]=fn; return x;};
 
 		this.registerHandlers(events.reduce(map, {}));
 	},
 
 
 	componentDidMount () {
-		events.forEach(event=>window.addEventListener(event, this.__onGlobalPointerEvent));
+		events.forEach(event=>window.addEventListener(event.toLowerCase(), this.__onGlobalPointerEvent));
 	},
 
 	componentWillUnmount () {
-		events.forEach(event=>window.removeEventListener(event, this.__onGlobalPointerEvent));
+		events.forEach(event=>window.removeEventListener(event.toLowerCase(), this.__onGlobalPointerEvent));
 	},
 
 
