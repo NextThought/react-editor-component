@@ -49,8 +49,10 @@ export default {
 		clearTimeout(this._interactionTimeout);
 		this._interactionTimeout = setTimeout(()=>{
 			if (this.isMounted()) {
-				let curr = this.getValue().join('');
-				let prev = this.state._previousValue;
+				let getVal = x => (Array.isArray(x) ? x.join('') : x) || null;
+
+				let curr = getVal(this.getValue());
+				let prev = getVal(this.state._previousValue);
 
 				if (prev !== curr) {
 					this.props.onChange(prev, curr);
