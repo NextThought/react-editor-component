@@ -32,11 +32,15 @@ export default {
 
 	applyValue (value) {
 		var div = document.createElement('div');
-		div.innerHTML = value;
-		console.log('Apply: %s',JSON.stringify(div.textContent));
+		div.innerHTML = value || '';
 
-		if (!value) {
+		//TODO: test for non-text enties too...
+		if (div.textContent.replace(/\s+/g,'').length === 0) {
 			value = this.getInitialState().content;
+		}
+
+		if (!/^<div/.test(value)) {
+			value = `<div>${value}</div>`;
 		}
 
 		this.setState({
