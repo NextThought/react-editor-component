@@ -62,7 +62,7 @@ export default React.createClass({
 		return (
 			<div className={classes}>
 
-				<div ref="editor" contentEditable={true}
+				<div ref="editor" contentEditable={true} tabIndex="0"
 					{...this.getRegisteredHandlers()}
 					dangerouslySetInnerHTML={{__html: this.state.content}}/>
 
