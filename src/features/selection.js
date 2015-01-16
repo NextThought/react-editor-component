@@ -66,6 +66,22 @@ export default {
 	},
 
 
+	putCursorAtTheEnd () {
+		var node = this.getEditorNode();
+		if (!node) {
+			return;
+		}
+
+		var range = document.createRange();
+		range.selectNodeContents(node);
+		range.collapse(false);
+
+		var selection = window.getSelection();
+		selection.removeAllRanges();
+		selection.addRange(range);
+	},
+
+
 	/**
 	 * @returns true if the cursor or the selected range is completely within the editor.
 	 */
