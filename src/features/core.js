@@ -49,7 +49,7 @@ export default {
 		clearTimeout(this._interactionTimeout);
 		this._interactionTimeout = setTimeout(()=>{
 			if (this.isMounted()) {
-				let curr = this.getValue();
+				let curr = this.getValue().join('');
 				let prev = this.state._previousValue;
 
 				if (prev !== curr) {
@@ -69,6 +69,6 @@ export default {
 
 
 	getValue () {
-		return this.parseValue(this.getEditorNode().innerHTML);
+		return this.parseValue(this.getEditorNode());
 	}
 };

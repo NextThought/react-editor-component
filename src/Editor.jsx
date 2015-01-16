@@ -36,7 +36,13 @@ export default React.createClass({
 		 *
 		 * @type {Function}
 		 */
-		onChange: React.PropTypes.func
+		onChange: React.PropTypes.func,
+
+
+		onPrepareValueChunkCallback: React.PropTypes.func,
+
+
+		onPartValueParseCallback: React.PropTypes.func
 	},
 
 
