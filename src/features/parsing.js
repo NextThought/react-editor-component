@@ -8,13 +8,12 @@ export default {
 
 	componentWillMount () {
 		this.applyValue(this.props.value);
-		console.log('Mount');
 	},
 
 
 	componentWillReceiveProps (props) {
 		if (props.value !== this.state.current) {
-			console.log('New Prop: "%s" "%s"', props.value, this.state.current);
+			//console.log('New Prop: "%s" "%s"', props.value, this.state.current);
 			this.applyValue(props.value);
 		}
 	},
