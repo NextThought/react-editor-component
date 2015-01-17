@@ -35,13 +35,9 @@ export default {
 		getStateClassResolvers(this).push(...resolvers);
 	},
 
+
 	getStateClasses () {
 		return getStateClassResolvers(this).map(fn=>fn());
-	},
-
-
-	componentDidMount () {
-		this.setState({_previousValue: this.getValue()});
 	},
 
 
@@ -55,13 +51,13 @@ export default {
 				let prev = getVal(this.state._previousValue);
 
 				if (prev !== curr) {
-					console.log('$o %o', prev, curr);
+					//console.debug('%o %o', prev, curr);
 					this.props.onChange(prev, curr);
 					this.setState({_previousValue: curr});
 				}
 			}
 
-		}, 500);
+		}, 1000);
 	},
 
 

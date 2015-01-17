@@ -1,8 +1,18 @@
 
-
+var BR = /<br[^>]*\/?>/ig;
 var REGEX_INITIAL_CHAR = /\u200B|\u2060/ig; //used to identify and strip out
 var placeholder = '\u200B';
 
+
+function getSharedDOMParser(name='default') {
+	return getSharedDOMParser[name] || (getSharedDOMParser[name] = document.createElement('div'));
+}
+
+function getSharedDOMParserWithValue(html, name='default') {
+	var dom = getSharedDOMParser(name);
+	dom.innerHTML = html;
+	return dom;
+}
 
 export default {
 
@@ -31,20 +41,27 @@ export default {
 
 
 	applyValue (value) {
-		var div = document.createElement('div');
-		div.innerHTML = value || '';
+		var dom = getSharedDOMParserWithValue(value || '');
+		var content = value = dom.innerHTML;//normalized by the browser :)
 
-		//TODO: test for non-text enties too...
-		if (div.textContent.replace(/\s+/g,'').length === 0) {
-			value = this.getInitialState().content;
+		//The value and what we put into the dom don't perfectly line up.
+		//We want to try to keep a block element as the child first child
+		//of the contenteditable. (for ease of access)
+
+		//TODO: test for non-text entities too...
+		if (dom.textContent.replace(/\s+/g,'').length === 0) {
+			content = this.getInitialState().content;
 		}
 
-		if (!/^<div/.test(value)) {
-			value = `<div>${value}</div>`;
+		if (!/^<div/.test(content)) {
+			content = `<div>${content}</div>`;
 		}
 
 		this.setState({
-			content: value
+			content: content,//content...
+
+			//this wants value.
+			_previousValue: value
 		});
 	},
 
@@ -64,7 +81,7 @@ function buildValue (parts, onPartValueParse) {
 	var result = [];
 
 	var stripTrailingBreak = text => text
-		.replace(/<br\/?>$/i, '')
+		.replace(/(<br[^>]*\/?>)+$/i, '')
 		.replace(REGEX_INITIAL_CHAR, '');
 
 	var isEmpty = i => i == null || i === '';
@@ -106,7 +123,7 @@ function buildValue (parts, onPartValueParse) {
 		}
 
 		//if we are just whitespace and html whitespace
-		return !isEmpty(i.replace(/<br\/?>/ig, '').trim());
+		return !isEmpty(i.replace(BR, '').trim());
 	});
 
 	return result;
