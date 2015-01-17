@@ -3,7 +3,8 @@ export default {
 
 	componentWillMount () {
 		this.registerHandlers({
-			onKeyDown: this.__onKeyPress,
+			//onKeyDown: this.__onKeyPress,
+			onKeyUp: this.__onKeyPress,
 			onKeyPress: this.__onKeyPress
 		});
 	},
@@ -18,7 +19,6 @@ export default {
 
 
 	handleKeyEvent () {
-		
 	}
 
 };
