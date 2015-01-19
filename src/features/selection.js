@@ -115,7 +115,7 @@ function findText(crumb, root) {
 	let search = container => eachNode(container, x=> {
 
 		if (!isText(x)) {
-			return search(x);//search will return true if it found `it`.
+			return !search(x);//search will return true if it found `it`... so flip to continue the search
 		}
 
 		sofar++;//this must be updated first. (x is a text node)
