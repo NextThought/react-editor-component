@@ -43,9 +43,95 @@ function isRangeWithinNode (range, node) {
 	return isCompletelyWithin(containerRange, range);
 }
 
+
 function getTagName(node) {
-	var {tagName} = node;
-	return (tagName || '#text').toLowerCase();
+	return node.nodeName.toLowerCase();
+}
+
+/**
+ * This returns the nth node "of kind" within a container, ignoring the dom tree.
+ * Meaning this is not the same as CSS nth... more like xpath nth:
+ *
+ * 		(//node-query)[2]
+ *
+ * The two in the psudo xpath is what this will return.
+ *
+ * @param {Node} node      The node to count
+ * @param {Node} container The root to count from.
+ */
+function flattenedNthCount(node, container) {
+	//converts `n`s childNodes NodeList to an Array
+	var nodes = x=> Array.from(x? x.childNodes: 0);
+	//Gathers the lineage up to the container (node lists, and the childnode in that list to iterate to)
+	var parentsOf = x => !x||x===container?
+					[]:
+					[{list: nodes(x.parentNode), node:x}]
+						.concat(parentsOf(x.parentNode));
+
+	//tag name we're looking for (if its a text node the nodeName will be #text)
+	var {nodeName} = node;
+
+	var count = -1;//not found, return -1
+
+	//Get the set of nodes to iterate...
+	var parents = parentsOf(node, container);
+
+	//Iterate...
+	parents.forEach(x => {
+		let {list, node} = x;
+		//Count...
+		list.every(y=> {
+			if (y.nodeName === nodeName) {
+				count += 1;
+			}
+			//Stop iteration when y is node...
+			return y !== node;
+		});
+	});
+
+	return count;
+}
+
+
+
+function findText(crumb, root) {
+	// sofar starts in the 'not found' state of -1. (to match the function flattenedNthCount above)
+	var node, sofar = -1;
+
+	let {nth, text, offset} = crumb;
+	let isText = n => n.nodeType === 3;
+
+	// every returns true when its callback never returns false...
+	// meaning our search was not found) so lets flip the return value.
+	let eachNode = (x,fn) => !Array.from(x.childNodes).every(fn);
+
+	//Iterate a node recursively for a text node with the value `text`
+	// and is the `nth` text node (so for a senario like this:
+	//
+	//		test<br>test<br>test
+	//
+	// would let us find the second and third text nodes that
+	// have the same node value.
+	let search = container => eachNode(container, x=> {
+
+		if (!isText(x)) {
+			return search(x);//search will return true if it found `it`.
+		}
+
+		sofar++;//this must be updated first. (x is a text node)
+
+		if (x.textContent === text && nth === sofar) {
+			node = x;
+		}
+
+		return !node;//node will not be falsy any more if we've found it.
+	});
+
+
+	return search(root) && {
+		node: node,
+		offset: offset
+	};
 }
 
 
@@ -57,13 +143,13 @@ function getTagName(node) {
  */
 function serializeNodePath (node, offset, root) {
 	var nodeIndex = n => Array.from((n.parentNode||0).childNodes||0).indexOf(n);
+	var textNode = node.nodeType === 3;//Node.TEXT_NODE;
 	var path = [];
-
 
 	//TODO: fix serialized node paths so alterned structure (not content) doesn't break carrot position.
 	//[notes]
-	//	If end point is textnode, just lets serizize it as #text[nth]{value}|offset When
-	//	we deserialize we can just look for it. Our value normalization will convert:
+	//	If end point is textnode, just lets serizize it as a POO: {text:, nth:, offset:}
+	//	When we deserialize we can just look for it. Our value normalization will convert:
 	//
 	//		<div>text</div><div>line2</div>
 	// to:
@@ -75,14 +161,19 @@ function serializeNodePath (node, offset, root) {
 	// but guess what the dom will look like after update?
 	//
 
+	if (textNode) {
+		let nthNode = flattenedNthCount(node, root);
+		return {nth: nthNode, text: node.textContent, offset: offset};
+	}
+	else {
+		while(node && node.parentNode) {
+			if (root === node) {
+				break;
+			}
 
-	while(node && node.parentNode) {
-		if (root === node) {
-			break;
+			path.push(getTagName(node)+'['+nodeIndex(node)+']');
+			node = node.parentNode;
 		}
-
-		path.push(getTagName(node)+'['+nodeIndex(node)+']');
-		node = node.parentNode;
 	}
 
 	return path.reverse().join('/') + `|${offset}`;
@@ -91,16 +182,24 @@ function serializeNodePath (node, offset, root) {
 
 function parseNodePath(path, root) {
 	var offset;
+	if (typeof path !== 'string') {
+		return findText(path, root);
+	}
+
 	[path, offset] = path.split('|');
 	path = path.split('/');
 
+
 	var node = root;
+
 	while(node && path.length) {
+
 		let index = path.shift();
 		let tag = /([#a-z]+)\[(\d+)\]/i.exec(index);
 		if (tag) {
 			[,tag,index] = tag;
 		}
+
 		let nextNode = Array.from(node.childNodes)[index];
 		if (!nextNode) {
 			console.warn('%o does not have a child at %s', node, index);
