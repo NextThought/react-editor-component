@@ -1,6 +1,6 @@
 {
   "name": "react-editor-component",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A Rich Text Editor for ReactJS",
   "main": "index.js",
   "dist": "dist/",
