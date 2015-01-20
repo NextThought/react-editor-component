@@ -44,10 +44,6 @@ function isRangeWithinNode (range, node) {
 }
 
 
-function getTagName(node) {
-	return node.nodeName.toLowerCase();
-}
-
 /**
  * This returns the nth node "of kind" within a container, ignoring the dom tree.
  * Meaning this is not the same as CSS nth... more like xpath nth:
@@ -62,65 +58,49 @@ function getTagName(node) {
 function flattenedNthCount(node, container) {
 	//converts `n`s childNodes NodeList to an Array
 	var nodes = x=> Array.from(x? x.childNodes: 0);
-	//Gathers the lineage up to the container (node lists, and the childnode in that list to iterate to)
-	var parentsOf = x => !x||x===container?
-					[]:
-					[{list: nodes(x.parentNode), node:x}]
-						.concat(parentsOf(x.parentNode));
+	var count = -1;
 
-	//tag name we're looking for (if its a text node the nodeName will be #text)
-	var {nodeName} = node;
+	let combiner = (a, n)=> a.concat(n, nodes(n).reduce(combiner, []));
 
-	var count = -1;//not found, return -1
+	var flatList = nodes(container).reduce(combiner, []);
 
-	//Get the set of nodes to iterate...
-	var parents = parentsOf(node, container);
-
-	//Iterate...
-	parents.forEach(x => {
-		let {list, node} = x;
-		//Count...
-		list.every(y=> {
-			if (y.nodeName === nodeName) {
-				count += 1;
-			}
-			//Stop iteration when y is node...
-			return y !== node;
-		});
+	flatList.every(x=> {
+		count += x.nodeName === node.nodeName ? 1 : 0;
+		return x !== node;
 	});
 
 	return count;
 }
 
 
-
-function findText(crumb, root) {
+function findNodeSeach(crumb, root, isKind, testNode=()=>true) {
 	// sofar starts in the 'not found' state of -1. (to match the function flattenedNthCount above)
 	var node, sofar = -1;
 
-	let {nth, text, offset} = crumb;
-	let isText = n => n.nodeType === 3;
+	let {nth, offset} = crumb;
 
 	// every returns true when its callback never returns false...
 	// meaning our search was not found) so lets flip the return value.
-	let eachNode = (x,fn) => !Array.from(x.childNodes).every(fn);
+	let eachNode = (x,fn) => !Array.from(x.childNodes||0).every(fn);
 
-	//Iterate a node recursively for a text node with the value `text`
-	// and is the `nth` text node (so for a senario like this:
+	//Iterate a node recursively for a node that satisfies isKind
+	// and is the `nth` node. So for a senario like this:
 	//
 	//		test<br>test<br>test
 	//
-	// would let us find the second and third text nodes that
-	// have the same node value.
+	// would let us find the second BR nodes...
 	let search = container => eachNode(container, x=> {
 
-		if (!isText(x)) {
-			return !search(x);//search will return true if it found `it`... so flip to continue the search
+		if (!isKind(x)) {
+			//This is safe for text nodes.
+
+			//search will return true if it found `it`... so flip to continue the search
+			return !search(x);
 		}
 
-		sofar++;//this must be updated first. (x is a text node)
+		sofar++;//this must be updated first. (x is a node we care about)
 
-		if (x.textContent === text && nth === sofar) {
+		if (nth === sofar && testNode(x)) {
 			node = x;
 		}
 
@@ -134,6 +114,24 @@ function findText(crumb, root) {
 	};
 }
 
+
+function findNode(crumb, root) {
+	let isKindText = x => x.nodeType===3;//Node.TEXT_NODE;
+	let isKindNode = x => x.nodeName === crumb.node;
+
+	let testNodeText = x => x.textContent === crumb.text;
+
+	let callbacks = [];
+
+	if (crumb.text) {
+		callbacks.push(isKindText, testNodeText);
+	}
+	else {
+		callbacks.push(isKindNode);
+	}
+
+	return findNodeSeach(crumb, root, ...callbacks);
+}
 
 /**
  * This is intended for react updates only... where we need to rebuild a range
@@ -171,7 +169,7 @@ function serializeNodePath (node, offset, root) {
 				break;
 			}
 
-			path.push(getTagName(node)+'['+nodeIndex(node)+']');
+			path.push(node.nodeName+'['+nodeIndex(node)+']');
 			node = node.parentNode;
 		}
 	}
@@ -183,7 +181,7 @@ function serializeNodePath (node, offset, root) {
 function parseNodePath(path, root) {
 	var offset;
 	if (typeof path !== 'string') {
-		return findText(path, root);
+		return findNode(path, root);
 	}
 
 	[path, offset] = path.split('|');
@@ -203,7 +201,7 @@ function parseNodePath(path, root) {
 		let nextNode = Array.from(node.childNodes)[index];
 		if (!nextNode) {
 			console.warn('%o does not have a child at %s', node, index);
-		} else if (tag && getTagName(nextNode) !== tag) {
+		} else if (tag && nextNode.nodeName !== tag) {
 			console.warn('%o is not what we expected. (%s)', nextNode, tag);
 		}
 
@@ -282,7 +280,7 @@ export default {
 		var node = this.getEditorNode();
 		if (range) {
 			range = {
-				snap: node.innerHTML,
+				// snap: node.innerHTML,
 				start: serializeNodePath(range.startContainer, range.startOffset, node),
 				end: serializeNodePath(range.endContainer, range.endOffset, node)
 			};
