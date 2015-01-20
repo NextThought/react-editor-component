@@ -201,6 +201,30 @@ function parseNodePath(path, root, preupdateSnapshot) {
 
 
 		let nextNode = Array.from(node.childNodes)[index];
+
+
+		//HACK:
+		//Maybe the dom shifted...(normalized)
+		if (tag==='DIV' && index==='1' && !nextNode && node===root) {
+			nextNode = node.firstChild;
+			let offsetPrefix = preupdateSnapshot.firstChild.childNodes.length + 1;
+
+			if (!path.length) {
+				offset += offsetPrefix;
+			}
+			else {
+				//If we are deeper, still... update the next node's index
+				path[0] =
+					path[0].replace(
+						/\[(\d+)\]$/m,
+						(_,x) => parseInt(x,10) + offsetPrefix
+					);
+			}
+		}
+
+
+
+
 		if (!nextNode) {
 			console.warn('%o does not have a child at %s', node, index);
 		} else if (tag && nextNode.nodeName !== tag) {
@@ -337,5 +361,5 @@ export default {
 	 */
 	hasSelection () {
 		return this.isMounted() && !!this.getSelection();
-		}
+	}
 };
