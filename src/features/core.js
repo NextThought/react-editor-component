@@ -12,16 +12,17 @@ export default {
 		return this[prop] || (this[prop] = {});
 	},
 
+
 	registerHandlers (dict) {
 		var handlers = this.getRegisteredHandlers();
 
 		Object.keys(dict).forEach(x=>{
 			if (x in handlers) {
-				console.debug('Chaining %s handlers', x);
+				//console.debug('Chaining %s handlers', x);
 				let original = handlers[x],
 					chained = dict[x];
 
-				dict[x] = function(...args) {
+				dict[x] = function(...args) {// (...args) => {} produces a lint warning.
 					original(...args);
 					chained(...args);
 				};
@@ -30,6 +31,7 @@ export default {
 
 		Object.assign(handlers, dict);
 	},
+
 
 	registerStateClassResolver (...resolvers) {
 		getStateClassResolvers(this).push(...resolvers);
@@ -41,8 +43,23 @@ export default {
 	},
 
 
+	componentWillMount () {
+		this.registerHandlers({
+			onBlur: () => {
+				this.wasInteractedWith();
+				if (!this.hasSelection()) {
+					this.props.onBlur();
+				}
+			}
+		});
+	},
+
+
 	wasInteractedWith () {
 		clearTimeout(this._interactionTimeout);
+
+		let timeout = this.hasSelection() ? 1000 : 0;
+
 		this._interactionTimeout = setTimeout(()=>{
 			if (this.isMounted()) {
 				let getVal = x => (Array.isArray(x) ? x.join('') : x) || null;
@@ -50,14 +67,15 @@ export default {
 				let curr = getVal(this.getValue());
 				let prev = getVal(this.state._previousValue);
 
-				if (prev !== curr) {
-					//console.debug('%o %o', prev, curr);
+				if (prev !== curr || !timeout) {
+					console.debug('Notifying onChange, flush: ', !timeout);
 					this.props.onChange(prev, curr);
 					this.setState({_previousValue: curr});
 				}
 			}
 
-		}, 1000);
+		}, timeout);
+
 		this.forceUpdate();//needed to update state of format buttons
 	},
 

@@ -41,6 +41,9 @@ export default React.createClass({
 		onChange: React.PropTypes.func,
 
 
+		onBlur: React.PropTypes.func,
+
+
 		onPrepareValueChunkCallback: React.PropTypes.func,
 
 
@@ -50,7 +53,8 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			onChange: emptyFunction
+			onChange: emptyFunction,
+			onBlur: emptyFunction
 		};
 	},
 
