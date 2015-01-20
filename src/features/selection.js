@@ -53,6 +53,25 @@ function isRangeWithinNode (range, node, inclusive=true) {
 }
 
 
+function isRangeStillValid (range, node) {
+
+	const isCollapsedBeforeNode = node =>
+			// If a range has the same end/start points it is collapsed
+			range.collapsed &&
+			// If the endpoint container is the given node, and the offset is 0
+			range.startContainer === node &&
+			range.startOffset === 0;
+
+
+	var within = range &&
+		!isCollapsedBeforeNode(node) &&
+		isRangeWithinNode(range, node);
+
+
+	return within;
+}
+
+
 /**
  * This returns the nth node "of kind" within a container, ignoring the dom tree.
  * Meaning this is not the same as CSS nth... more like xpath nth:
@@ -315,6 +334,7 @@ export default {
 		var node = this.getEditorNode();
 		if (range) {
 			range = {
+				range: range,
 				snap: node.cloneNode(true),
 				start: serializeNodePath(range.startContainer, range.startOffset, node),
 				end: serializeNodePath(range.endContainer, range.endOffset, node)
@@ -325,13 +345,19 @@ export default {
 	},
 
 
-	restoreSelection (serializedRange) {
+	restoreSelection (savedRange) {
 		var node = this.getEditorNode();
-		if (serializedRange && window.getSelection) {
+		if (savedRange && window.getSelection) {
 			let sel = window.getSelection();
 			sel.removeAllRanges();
 			try {
-				sel.addRange(parseRange(serializedRange, node));
+				let {range} = savedRange;
+				if (range && !isRangeStillValid(range, node)) {
+					console.log('range wasn`t valid');
+					range = null;
+				}
+
+				sel.addRange(range || parseRange(savedRange, node));
 			} catch (e) {
 				console.error(e.stack || e.message || e);
 				window.alert(e.stack);

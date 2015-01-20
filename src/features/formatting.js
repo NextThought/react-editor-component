@@ -5,12 +5,22 @@ var FORMATS = [
 	'underline'
 ];
 
+const savedSelection = Symbol('savedSelection');
+
+
 export default {
 
 	componentWillMount () {
 		this.registerStateClassResolver(
 			this.getActiveFormats
 		);
+
+		this.registerHandlers({
+			onBlur: ()=> {
+				//save cursor on blur
+				this[savedSelection] = this.saveSelection();
+			}
+		});
 	},
 
 
@@ -35,8 +45,14 @@ export default {
 		e.preventDefault();
 		e.stopPropagation();
 
+		var sel = this[savedSelection];
+		if (sel){
+			this.restoreSelection(sel);
+		}
+
 		var style = e.target.getAttribute('data-format');
 		this.applyFormat(style);
+
 		this.wasInteractedWith();
 	},
 
