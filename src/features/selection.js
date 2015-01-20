@@ -178,15 +178,16 @@ function serializeNodePath (node, offset, root) {
 }
 
 
-function parseNodePath(path, root) {
+function parseNodePath(path, root, preupdateSnapshot) {
 	var offset;
 	if (typeof path !== 'string') {
 		return findNode(path, root);
 	}
 
 	[path, offset] = path.split('|');
-	path = path.split('/');
 
+	path = path.split('/');
+	offset = parseInt(offset, 10);
 
 	var node = root;
 
@@ -197,6 +198,7 @@ function parseNodePath(path, root) {
 		if (tag) {
 			[,tag,index] = tag;
 		}
+
 
 		let nextNode = Array.from(node.childNodes)[index];
 		if (!nextNode) {
@@ -210,19 +212,19 @@ function parseNodePath(path, root) {
 
 	return node && {
 		node: node,
-		offset: parseInt(offset, 10)
+		offset: offset
 	};
 }
 
 
 function parseRange (rangeish, root) {
-	var {start, end} = rangeish;
+	var {snap, start, end} = rangeish;
 	var range = document.createRange();
 	var cap = s => s.replace(/^./m, x=>x.toUpperCase());
 
 
-	function _set(side, part) {
-		part = parseNodePath(part, root);
+	function _set(side, part, snapshot) {
+		part = parseNodePath(part, root, snapshot);
 		if (part) {
 			let {node, offset} = part;
 
@@ -234,8 +236,8 @@ function parseRange (rangeish, root) {
 	}
 
 	try {
-		_set('start', start);
-		_set('end', end);
+		_set('start', start, snap);
+		_set('end', end, snap);
 	}
 	catch (e) {
 		//On some react updates, the content will shift in one div...
@@ -280,7 +282,7 @@ export default {
 		var node = this.getEditorNode();
 		if (range) {
 			range = {
-				// snap: node.innerHTML,
+				snap: node.cloneNode(true),
 				start: serializeNodePath(range.startContainer, range.startOffset, node),
 				end: serializeNodePath(range.endContainer, range.endOffset, node)
 			};
