@@ -17,7 +17,11 @@ export default {
 	getActiveFormats () {
 		if (this.hasSelection()) {
 			try {
-				return FORMATS.filter(x=>document.queryCommandState(x)).join(' ');
+				return FORMATS
+					.filter(x=>document.queryCommandState(x))
+					.map(x=>'format-'+x)
+					.join(' ');
+
 			} catch (e) {
 				console.error(e.stack || e.message || e);
 			}
