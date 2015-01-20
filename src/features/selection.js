@@ -1,6 +1,6 @@
 /*global Range*/
 
-function isStartWithin(rangeA, rangeB) {
+function isStartWithin(rangeA, rangeB, inclusive=true) {
 	//Comparing the startContainer of rangeB against the startContainer of rangeA:
 	var start = rangeA.compareBoundaryPoints(Range.START_TO_START, rangeB);
 	//Comparing the startContainer of rangeB against the endContainer of rangeA:
@@ -11,11 +11,15 @@ function isStartWithin(rangeA, rangeB) {
 	// --> a `start` value of -1 or 0. (rangeA's begin is before rangeB's start)
 	// --> an `end` value of 1 or 0. (rangeA's end is after rangeB's start)
 
+	if (!inclusive) {
+		return start < 0 && end > 0;
+	}
+
 	return start < 1 && end > -1;
 }
 
 
-function isEndWithin(rangeA, rangeB) {
+function isEndWithin(rangeA, rangeB, inclusive=true) {
 	//Comparing the endContainer of rangeB against the endContainer of rangeA:
 	var end = rangeA.compareBoundaryPoints(Range.END_TO_END, rangeB);
 	//Comparing the endContainer of rangeB against the startContainer of rangeA:
@@ -26,21 +30,26 @@ function isEndWithin(rangeA, rangeB) {
 	// --> a `start` value of -1 or 0. (rangeA's begin is before rangeB's end)
 	// --> an `end` value of 1 or 0. (rangeA's end is after rangeB's end)
 
+	if (!inclusive) {
+		return start < 0 && end > 0;
+	}
+
 	return start < 1 && end > -1;
 }
 
 
-function isCompletelyWithin(rangeA, rangeB) {
-	return isEndWithin(rangeA, rangeB) && isStartWithin(rangeA, rangeB);
+function isCompletelyWithin(rangeA, rangeB, inclusive=true) {
+	return	isEndWithin(rangeA, rangeB, inclusive) &&
+			isStartWithin(rangeA, rangeB, inclusive);
 }
 
 
-function isRangeWithinNode (range, node) {
+function isRangeWithinNode (range, node, inclusive=true) {
 	var containerRange = document.createRange();
 
 	containerRange.selectNodeContents(node);
 	//if the selected range is completely within the editor area
-	return isCompletelyWithin(containerRange, range);
+	return isCompletelyWithin(containerRange, range, inclusive);
 }
 
 
