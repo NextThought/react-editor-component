@@ -42,8 +42,10 @@ export default {
 
 
 	applyFormat (style) {
-		if (document.queryCommandSupported(style)) {
-			document.execCommand(style, false, false);
+		try {
+			document.execCommand(style);
+		} catch(e) {
+			console.error('No execCommand support?');
 		}
 	}
 
