@@ -58,6 +58,7 @@ export default {
 			}
 
 		}, 1000);
+		this.forceUpdate();//needed to update state of format buttons
 	},
 
 

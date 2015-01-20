@@ -15,7 +15,15 @@ export default {
 
 
 	getActiveFormats () {
-		return FORMATS.filter(x=>document.queryCommandState(x)).join(' ');
+		if (this.hasSelection()) {
+			try {
+				return FORMATS.filter(x=>document.queryCommandState(x)).join(' ');
+			} catch (e) {
+				console.error(e.stack || e.message || e);
+			}
+		}
+
+		return '';
 	},
 
 
@@ -27,6 +35,7 @@ export default {
 		this.applyFormat(style);
 		this.wasInteractedWith();
 	},
+
 
 	applyFormat (style) {
 		if (document.queryCommandSupported(style)) {

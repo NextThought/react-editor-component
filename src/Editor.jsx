@@ -9,6 +9,8 @@ import PasteHandlers from './features/paste-handlers';
 import PointerHandler from './features/pointer-handlers';
 import Selection from './features/selection';
 
+import ContentEditable from './ContentEditable';
+
 export default React.createClass({
 	displayName: 'Editor',
 
@@ -53,13 +55,6 @@ export default React.createClass({
 	},
 
 
-	shouldComponentUpdate (/*nextProps, nextState*/) {
-		//If there is a cursor/selection within the
-		// editor, we do NOT want to update.
-		return !this.hasSelection();
-	},
-
-
 	render () {
 		var classes = [
 			'editor',
@@ -70,9 +65,8 @@ export default React.createClass({
 		return (
 			<div className={classes}>
 
-				<div ref="editor" contentEditable={true} tabIndex="0"
-					{...this.getRegisteredHandlers()}
-					dangerouslySetInnerHTML={{__html: this.state.content}}/>
+				<ContentEditable content={this.state.content} ref="editor"
+					{...this.getRegisteredHandlers()} tabIndex="0"/>
 
 				<div className="toolbar">
 					<button onClick={this.onSetFormat} data-format="bold">B</button>

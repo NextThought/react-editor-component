@@ -335,22 +335,5 @@ export default {
 	 */
 	hasSelection () {
 		return this.isMounted() && !!this.getSelection();
-	},
-
-
-	componentWillUpdate () {
-		this._savedRange = this.saveSelection();
-	},
-
-
-	componentDidUpdate () {
-		var a = JSON.stringify(this._savedRange);
-
-		this.restoreSelection(this._savedRange);
-
-		var b = JSON.stringify(this.saveSelection());
-		if (a !== b) {
-			console.warn(b === a, a, b);
 		}
-	},
 };
