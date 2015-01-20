@@ -22,13 +22,13 @@ export default {
 
 
 	componentWillReceiveProps (props) {
-		//This will make them equal when one is undefiend or null.
 		var value = props.value || null;
+		var current = this.props.value || null;
 		var state = this.state.current || null;
 
-		if (value !== state) {
-			//console.log('New Prop: "%s" "%s"', props.value, this.state.current);
-			this.applyValue(props.value);
+		if (value !== current) {
+			console.debug('New Prop: "%s" "%s"', value, current, state);
+			this.applyValue(value);
 		}
 	},
 
