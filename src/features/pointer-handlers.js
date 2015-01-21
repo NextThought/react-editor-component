@@ -28,7 +28,6 @@ export default {
 
 
 	__onTouched () {
-		this.wasInteractedWith();
 		if (!this.hasSelection()) {
 			this.putCursorAtTheEnd();
 		}
