@@ -1,13 +1,13 @@
-#A Rich text editor ReactJS component
+#A rich text editor component, for ReactJS
 
 ---
 Progress:
 - [x] Initial Editor
 - [x] Get the editor's base functionality working in React 0.12.x
-- [ ] The interface will be: `<Editor value={...} onChange={}/>`
+- [x] The interface is: `<Editor value={...} onChange={}/>`
+- [x] Copy (it's built in 😉)
+- [ ] Paste
 - [ ] There will be optional `render{Bottom|Top}Toolbar` callback props that will let the toolbars to be costomized. (added to, or substituted)
-- [ ] Copy/Paste
-- [x] Undo/Redo
 
 
 ##### File naming conventions:
