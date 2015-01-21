@@ -309,7 +309,21 @@ function parseRange (rangeish, root) {
 
 export default {
 
-	getSelection(){
+
+	componentWillMount () {
+		this.registerHandlers({
+
+			onFocus: ()=> {
+				if (!this.hasSelection()) {
+					this.putCursorAtTheEnd();
+				}
+			}
+
+		});
+	},
+
+
+	getSelection(from){
 		if (!window.getSelection) {
 			console.warn('Unsupported (Legacy) Selection Model');
 			return null;
@@ -321,7 +335,11 @@ export default {
 			range = sel.getRangeAt(0);
 		}
 
-		if (range && !isRangeWithinNode(range, this.getEditorNode())) {
+		if (!from) {
+			from = this.getEditorNode();
+		}
+
+		if (range && !isRangeWithinNode(range, from, true)) {
 			range = null;
 		}
 
@@ -349,7 +367,6 @@ export default {
 		var node = this.getEditorNode();
 		if (savedRange && window.getSelection) {
 			let sel = window.getSelection();
-			sel.removeAllRanges();
 			try {
 				let {range} = savedRange;
 				if (range && !isRangeStillValid(range, node)) {
@@ -357,6 +374,7 @@ export default {
 					range = null;
 				}
 
+				sel.removeAllRanges();
 				sel.addRange(range || parseRange(savedRange, node));
 			} catch (e) {
 				console.error(e.stack || e.message || e);
@@ -370,7 +388,8 @@ export default {
 		if (!this.hasSelection()) {
 			return; //lets not be destructive.
 		}
-
+		
+		console.debug('Clearing');
 		window.getSelection().removeAllRanges();
 	},
 
@@ -395,6 +414,6 @@ export default {
 	 * @returns true if the cursor or the selected range is completely within the editor.
 	 */
 	hasSelection () {
-		return this.isMounted() && !!this.getSelection();
+		return this.isMounted() && !!this.getSelection(this.getDOMNode());
 	}
 };

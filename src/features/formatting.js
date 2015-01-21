@@ -15,10 +15,20 @@ export default {
 			this.getActiveFormats
 		);
 
+		let touch = (
+			'ontouchstart' in global || // everyone else
+			'onmsgesturechange' in global //IE10
+		);
+
+		let touchEvent = touch ? 'onTouchStart' : 'onMouseDown';
+
 		this.registerHandlers({
-			onBlur: ()=> {
+			[touchEvent]: ()=> {
 				//save cursor on blur
-				this[savedSelection] = this.saveSelection();
+				let s = this.saveSelection();
+				if (s) {
+					this[savedSelection] = s;
+				}
 			}
 		});
 	},

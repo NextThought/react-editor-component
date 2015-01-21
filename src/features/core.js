@@ -58,23 +58,27 @@ export default {
 	wasInteractedWith () {
 		clearTimeout(this._interactionTimeout);
 
-		let timeout = this.hasSelection() ? 1000 : 0;
+		let force = !this.hasSelection();
 
-		this._interactionTimeout = setTimeout(()=>{
+		let schedual = force ?
+			fn=>fn()||0 :
+			fn=>setTimeout(fn, 1000);
+
+		this._interactionTimeout = schedual(()=>{
 			if (this.isMounted()) {
 				let getVal = x => (Array.isArray(x) ? x.join('') : x) || null;
 
 				let curr = getVal(this.getValue());
 				let prev = getVal(this.state._previousValue);
 
-				if (prev !== curr || !timeout) {
-					console.debug('Notifying onChange, flush: ', !timeout);
+				if (prev !== curr || force) {
+					//console.debug('Notifying onChange, flush: ', !timeout);
 					this.props.onChange(prev, curr);
 					this.setState({_previousValue: curr});
 				}
 			}
 
-		}, timeout);
+		});
 
 		this.forceUpdate();//needed to update state of format buttons
 	},

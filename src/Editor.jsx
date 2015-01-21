@@ -67,10 +67,9 @@ export default React.createClass({
 		].filter(x=>x).join(' ');
 
 		return (
-			<div className={classes}>
+			<div className={classes} {...this.getRegisteredHandlers()}>
 
-				<ContentEditable content={this.state.content} ref="editor"
-					{...this.getRegisteredHandlers()} tabIndex="0"/>
+				<ContentEditable content={this.state.content} ref="editor" tabIndex="0"/>
 
 				<div className="toolbar">
 					<button onClick={this.onSetFormat} data-format="bold">B</button>
