@@ -8,6 +8,13 @@ var events = [
 ];
 
 
+
+function isEventInNode(target, node) {
+	if (!target) {return false;}
+	return target === node || isEventInNode(target.parentNode, node);
+}
+
+
 export default {
 
 	componentWillMount () {
@@ -27,8 +34,8 @@ export default {
 	},
 
 
-	__onTouched () {
-		if (!this.hasSelection()) {
+	__onTouched (e) {
+		if (!this.hasSelection() && !isEventInNode(e.target, this.getEditorNode())) {
 			this.putCursorAtTheEnd();
 		}
 	},
