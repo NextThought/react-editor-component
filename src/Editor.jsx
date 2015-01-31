@@ -1,4 +1,4 @@
-import * as React from 'react/addons';
+import React from 'react/addons';
 import emptyFunction from 'react/lib/emptyFunction';
 
 import Core from './features/core';

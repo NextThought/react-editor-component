@@ -1,5 +1,5 @@
 
-import * as Editor from 'editor';
+import Editor from 'editor';
 
 describe('dummy spec', ()=> {
 
