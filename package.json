@@ -25,9 +25,11 @@
     "url": "https://github.com/NextThought/react-editor-component/issues"
   },
   "homepage": "https://github.com/NextThought/react-editor-component",
-  "peerDependencies": {
+
+  "dependencies": {
     "react": "^0.12.2"
   },
+
   "devDependencies": {
     "6to5": "^3.3.0",
     "6to5-loader": "^3.0.0",
