@@ -15,7 +15,7 @@ Progress:
 - Classes and Components: `PascalNameCase.js(x)`
 
 ### Development
-This project uses ES6 JavaScript. ([WebPack][1] bundles and [6to5][2] transpiles)
+This project uses ES6 JavaScript. ([WebPack][1] bundles and [babel][2] transpiles)
 
 Please do not checkin dist bundles. This project is intended to be included into a larger project using a packager like [WebPack][1].
 
@@ -38,4 +38,4 @@ $ grunt
 
 
    [1]: //webpack.github.io
-   [2]: //6to5.org
+   [2]: //babeljs.org
