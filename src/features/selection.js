@@ -45,7 +45,11 @@ function isCompletelyWithin(rangeA, rangeB, inclusive=true) {
 
 
 function isRangeWithinNode (range, node, inclusive=true) {
-	var containerRange = document.createRange();
+	if (node.ownerDocument !== range.commonAncestorContainer.ownerDocument) {
+		return false;
+	}
+
+	let containerRange = node.ownerDocument.createRange();
 
 	containerRange.selectNodeContents(node);
 	//if the selected range is completely within the editor area
@@ -329,14 +333,22 @@ export default {
 			return null;
 		}
 
-		var range = null;
-		var sel = window.getSelection();
-		if (sel.getRangeAt && sel.rangeCount) {
-			range = sel.getRangeAt(0);
-		}
-
 		if (!from) {
 			from = this.getEditorNode();
+		}
+
+		let getSelection = x=> (x && x.getSelection) ?
+								x.getSelection() :
+								(x ? getSelection(x.parentNode) : null);
+
+		let range = null;
+		let sel = getSelection(from);
+		if (sel && sel.rangeCount) {
+			// create the range to avoid chrome bug from getRangeAt / window.getSelection()
+			// https://code.google.com/p/chromium/issues/detail?id=380690
+			range = sel.anchorNode.ownerDocument.createRange();
+			range.setStart(sel.anchorNode, sel.anchorOffset);
+			range.setEnd(sel.focusNode, sel.focusOffset);
 		}
 
 		if (range && !isRangeWithinNode(range, from, true)) {
@@ -409,10 +421,20 @@ export default {
 	},
 
 
+	componentDidMount () {
+		this.componentNode = this.getDOMNode();
+	},
+
+
+	componentWillUnmount () {
+		this.componentNode = null;
+	},
+
+
 	/**
 	 * @returns true if the cursor or the selected range is completely within the editor.
 	 */
 	hasSelection () {
-		return this.isMounted() && !!this.getSelection(this.getDOMNode());
+		return this.componentNode && !!this.getSelection(this.componentNode);
 	}
 };
