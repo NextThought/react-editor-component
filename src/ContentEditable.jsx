@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 
 
@@ -7,7 +7,7 @@ export default React.createClass({
 
 
 	propTypes: {
-		editorFrame: React.PropTypes.element.isRequired,
+		editorFrame: React.PropTypes.node.isRequired,
 		content: React.PropTypes.string
 	},
 

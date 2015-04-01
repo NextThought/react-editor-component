@@ -1,90 +1,31 @@
 
-var BR = /<br[^>]*\/?>/ig;
-var REGEX_INITIAL_CHAR = /\u200B|\u2060/ig; //used to identify and strip out
-var placeholder = '\u200B';
+const BR = /<br[^>]*\/?>/ig;
+const REGEX_INITIAL_CHAR = /\u200B|\u2060/ig; //used to identify and strip out
+const placeholder = '\u200B';
 
 
 function getSharedDOMParser(name='default') {
 	return getSharedDOMParser[name] || (getSharedDOMParser[name] = document.createElement('div'));
 }
 
+
 function getSharedDOMParserWithValue(html, name='default') {
-	var dom = getSharedDOMParser(name);
+	let dom = getSharedDOMParser(name);
 	dom.innerHTML = html;
 	return dom;
 }
 
-export default {
-
-	componentWillMount () {
-		this.applyValue(this.props.value);
-	},
-
-
-	componentWillReceiveProps (props) {
-		var value = props.value || null;
-		var current = this.props.value || null;
-		var state = this.state.current || null;
-
-		if (value !== current) {
-			console.debug('New Prop: "%s" "%s"', value, current, state);
-			this.applyValue(value);
-		}
-	},
-
-
-	getInitialState () {
-		return {
-			content: `<div>${placeholder}</div>`
-		};
-	},
-
-
-	applyValue (value) {
-		var dom = getSharedDOMParserWithValue(value || '');
-		var content = value = dom.innerHTML;//normalized by the browser :)
-
-		//The value and what we put into the dom don't perfectly line up.
-		//We want to try to keep a block element as the child first child
-		//of the contenteditable. (for ease of access)
-
-		//TODO: test for non-text entities too...
-		if (dom.textContent.replace(/\s+/g,'').length === 0) {
-			content = this.getInitialState().content;
-		}
-
-		if (!/^<div/.test(content)) {
-			content = `<div>${content}</div>`;
-		}
-
-		this.setState({
-			content: content,//content...
-
-			//this wants value.
-			_previousValue: value
-		});
-	},
-
-
-	parseValue (domNode) {
-		var intermediate = prepareValue(domNode, this.props.onPrepareValueChunkCallback);
-		var value = buildValue(intermediate, this.props.onPartValueParseCallback);
-
-		return value;
-	}
-};
-
 
 function buildValue (parts, onPartValueParse) {
-	if (!parts) {return [];}
+	if (!parts) { return []; }
 
-	var result = [];
+	let result = [];
 
-	var stripTrailingBreak = text => text
+	let stripTrailingBreak = text => text
 		.replace(/(<br[^>]*\/?>)+$/i, '')
 		.replace(REGEX_INITIAL_CHAR, '');
 
-	var isEmpty = i => i == null || i === '';
+	let isEmpty = i => i == null || i === '';
 
 
 	for (let i = 0, len = parts.length; i < len; i++) {
@@ -135,10 +76,10 @@ function prepareValue (node, onPrepareValueChunk) {
 	//See http://stackoverflow.com/a/12832455
 	// and http://jsfiddle.net/sathyamoorthi/BmTNP/5/
 
-	var out = [];
-	var elements = Array.from(node.childNodes);
+	let out = [];
+	let elements = Array.from(node.childNodes);
 
-	var buffer = [];
+	let buffer = [];
 
 
 	function parseAndAdd(el) {
@@ -162,10 +103,10 @@ function prepareValue (node, onPrepareValueChunk) {
 		}
 	}
 
-	var inlineTags = /^(a|b|i|img|em|u|span|strong)$/;
+	let inlineTags = /^(a|b|i|img|em|u|span|strong)$/;
 
-	function isInlineNode(node) {
-		var {nodeType, tagName} = node;
+	function isInlineNode(n) {
+		let {nodeType, tagName} = n;
 		return nodeType === 3 || (nodeType === 1 && inlineTags.test(tagName));
 	}
 
@@ -202,3 +143,64 @@ function prepareValue (node, onPrepareValueChunk) {
 
 	return out;
 }
+
+
+export default {
+
+	componentWillMount () {
+		this.applyValue(this.props.value);
+	},
+
+
+	componentWillReceiveProps (props) {
+		let value = props.value || null;
+		let current = this.props.value || null;
+		let state = this.state.current || null;
+
+		if (value !== current) {
+			console.debug('New Prop: "%s" "%s"', value, current, state);
+			this.applyValue(value);
+		}
+	},
+
+
+	getInitialState () {
+		return {
+			content: `<div>${placeholder}</div>`
+		};
+	},
+
+
+	applyValue (value) {
+		let dom = getSharedDOMParserWithValue(value || '');
+		let content = value = dom.innerHTML;//normalized by the browser :)
+
+		//The value and what we put into the dom don't perfectly line up.
+		//We want to try to keep a block element as the child first child
+		//of the contenteditable. (for ease of access)
+
+		//TODO: test for non-text entities too...
+		if (dom.textContent.replace(/\s+/g, '').length === 0) {
+			content = this.getInitialState().content;
+		}
+
+		if (!/^<div/.test(content)) {
+			content = `<div>${content}</div>`;
+		}
+
+		this.setState({
+			content,
+
+			//this wants value.
+			previousValue: value
+		});
+	},
+
+
+	parseValue (domNode) {
+		let intermediate = prepareValue(domNode, this.props.onPrepareValueChunkCallback);
+		let value = buildValue(intermediate, this.props.onPartValueParseCallback);
+
+		return value;
+	}
+};

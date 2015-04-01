@@ -1,3 +1,5 @@
+/*eslint no-var: 0*/
+var path = require('path');
 exports = module.exports = {
 	entry: '<%= pkg.main %>',
 	output: {
@@ -17,7 +19,7 @@ exports = module.exports = {
 	},
 
 	resolve: {
-		root: __dirname + '/src',
+		root: path.resolve(__dirname, 'src'),
 		extensions: ['', '.jsx', '.js']
 	},
 

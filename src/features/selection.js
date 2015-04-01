@@ -2,9 +2,9 @@
 
 function isStartWithin(rangeA, rangeB, inclusive=true) {
 	//Comparing the startContainer of rangeB against the startContainer of rangeA:
-	var start = rangeA.compareBoundaryPoints(Range.START_TO_START, rangeB);
+	let start = rangeA.compareBoundaryPoints(Range.START_TO_START, rangeB);
 	//Comparing the startContainer of rangeB against the endContainer of rangeA:
-	var end = rangeA.compareBoundaryPoints(Range.START_TO_END, rangeB);
+	let end = rangeA.compareBoundaryPoints(Range.START_TO_END, rangeB);
 
 	//We want the rangeB.startContainer to be between the rangeA.(start|end)Containers.
 	// So we are looking for:
@@ -21,9 +21,9 @@ function isStartWithin(rangeA, rangeB, inclusive=true) {
 
 function isEndWithin(rangeA, rangeB, inclusive=true) {
 	//Comparing the endContainer of rangeB against the endContainer of rangeA:
-	var end = rangeA.compareBoundaryPoints(Range.END_TO_END, rangeB);
+	let end = rangeA.compareBoundaryPoints(Range.END_TO_END, rangeB);
 	//Comparing the endContainer of rangeB against the startContainer of rangeA:
-	var start = rangeA.compareBoundaryPoints(Range.END_TO_START, rangeB);
+	let start = rangeA.compareBoundaryPoints(Range.END_TO_START, rangeB);
 
 	//We want the rangeB.endContainer to be between the rangeA.(start|end)Containers.
 	// So we are looking for:
@@ -63,7 +63,7 @@ function isRangeStillValid (range, node) {
 			range.startOffset === 0;
 
 
-	var within = range &&
+	let within = range &&
 		!isCollapsedBeforeNode(node) &&
 		isRangeWithinNode(range, node);
 
@@ -85,12 +85,12 @@ function isRangeStillValid (range, node) {
  */
 function flattenedNthCount(node, container) {
 	//converts `n`s childNodes NodeList to an Array
-	var nodes = x=> Array.from(x? x.childNodes: 0);
-	var count = -1;
+	let nodes = x=> Array.from(x? x.childNodes: 0);
+	let count = -1;
 
 	let combiner = (a, n)=> a.concat(n, nodes(n).reduce(combiner, []));
 
-	var flatList = nodes(container).reduce(combiner, []);
+	let flatList = nodes(container).reduce(combiner, []);
 
 	flatList.every(x=> {
 		count += x.nodeName === node.nodeName ? 1 : 0;
@@ -103,13 +103,13 @@ function flattenedNthCount(node, container) {
 
 function findNodeSeach(crumb, root, isKind, testNode=()=>true) {
 	// sofar starts in the 'not found' state of -1. (to match the function flattenedNthCount above)
-	var node, sofar = -1;
+	let node, sofar = -1;
 
 	let {nth, offset} = crumb;
 
 	// every returns true when its callback never returns false...
 	// meaning our search was not found) so lets flip the return value.
-	let eachNode = (x,fn) => !Array.from(x.childNodes||0).every(fn);
+	let eachNode = (x, fn) => !Array.from(x.childNodes||0).every(fn);
 
 	//Iterate a node recursively for a node that satisfies isKind
 	// and is the `nth` node. So for a senario like this:
@@ -168,9 +168,9 @@ function findNode(crumb, root) {
  * mostly minor dom changes.
  */
 function serializeNodePath (node, offset, root) {
-	var nodeIndex = n => Array.from((n.parentNode||0).childNodes||0).indexOf(n);
-	var textNode = node.nodeType === 3;//Node.TEXT_NODE;
-	var path = [];
+	let nodeIndex = n => Array.from((n.parentNode||0).childNodes||0).indexOf(n);
+	let textNode = node.nodeType === 3;//Node.TEXT_NODE;
+	let path = [];
 
 	//TODO: fix serialized node paths so alterned structure (not content) doesn't break carrot position.
 	//[notes]
@@ -207,7 +207,7 @@ function serializeNodePath (node, offset, root) {
 
 
 function parseNodePath(path, root, preupdateSnapshot) {
-	var offset;
+	let offset;
 	if (typeof path !== 'string') {
 		return findNode(path, root);
 	}
@@ -217,14 +217,18 @@ function parseNodePath(path, root, preupdateSnapshot) {
 	path = path.split('/');
 	offset = parseInt(offset, 10);
 
-	var node = root;
+	let node = root;
+
+	function fixPath(p, n) {
+		return p.replace(/\[(\d+)\]$/m, (_, x) => parseInt(x, 10) + n);
+	}
 
 	while(node && path.length) {
 
 		let index = path.shift();
 		let tag = /([#a-z]+)\[(\d+)\]/i.exec(index);
 		if (tag) {
-			[,tag,index] = tag;
+			[, tag, index] = tag;
 		}
 
 
@@ -242,11 +246,7 @@ function parseNodePath(path, root, preupdateSnapshot) {
 			}
 			else {
 				//If we are deeper, still... update the next node's index
-				path[0] =
-					path[0].replace(
-						/\[(\d+)\]$/m,
-						(_,x) => parseInt(x,10) + offsetPrefix
-					);
+				path[0] = fixPath(path[0]);
 			}
 		}
 
@@ -270,12 +270,12 @@ function parseNodePath(path, root, preupdateSnapshot) {
 
 
 function parseRange (rangeish, root) {
-	var {snap, start, end} = rangeish;
-	var range = document.createRange();
-	var cap = s => s.replace(/^./m, x=>x.toUpperCase());
+	let {snap, start, end} = rangeish;
+	let range = document.createRange();//may need adjusting
+	let cap = s => s.replace(/^./m, x=>x.toUpperCase());
 
 
-	function _set(side, part, snapshot) {
+	function set(side, part, snapshot) {
 		part = parseNodePath(part, root, snapshot);
 		if (part) {
 			let {node, offset} = part;
@@ -288,8 +288,8 @@ function parseRange (rangeish, root) {
 	}
 
 	try {
-		_set('start', start, snap);
-		_set('end', end, snap);
+		set('start', start, snap);
+		set('end', end, snap);
 	}
 	catch (e) {
 		//On some react updates, the content will shift in one div...
@@ -348,8 +348,8 @@ export default {
 
 
 	saveSelection () {
-		var range = this.getSelection();
-		var node = this.getEditorNode();
+		let range = this.getSelection();
+		let node = this.getEditorNode();
 		if (range) {
 			range = {
 				range: range,
@@ -364,7 +364,7 @@ export default {
 
 
 	restoreSelection (savedRange) {
-		var node = this.getEditorNode();
+		let node = this.getEditorNode();
 		if (savedRange && window.getSelection) {
 			let sel = window.getSelection();
 			try {
@@ -378,7 +378,6 @@ export default {
 				sel.addRange(range || parseRange(savedRange, node));
 			} catch (e) {
 				console.error(e.stack || e.message || e);
-				window.alert(e.stack);
 			}
 		}
 	},
@@ -388,23 +387,23 @@ export default {
 		if (!this.hasSelection()) {
 			return; //lets not be destructive.
 		}
-		
+
 		console.debug('Clearing');
 		window.getSelection().removeAllRanges();
 	},
 
 
 	putCursorAtTheEnd () {
-		var node = this.getEditorNode();
+		let node = this.getEditorNode();
 		if (!node) {
 			return;
 		}
 
-		var range = document.createRange();
+		let range = document.createRange();
 		range.selectNodeContents(node);
 		range.collapse(false);
 
-		var selection = window.getSelection();
+		let selection = window.getSelection();
 		selection.removeAllRanges();
 		selection.addRange(range);
 	},

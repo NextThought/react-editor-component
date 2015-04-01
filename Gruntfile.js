@@ -1,5 +1,6 @@
 'use strict';
-
+/*eslint no-var: 0*/
+var path = require('path');
 var wpcfg = require('./webpack.config');
 
 module.exports = function(grunt) {
@@ -11,22 +12,20 @@ module.exports = function(grunt) {
 		pkg: pkgConfig,
 
 		karma: {
-            unit: {
-                configFile: 'karma.conf.js'
-            }
-        },
+			unit: {
+				configFile: 'karma.conf.js'
+			}
+		},
 
 
-		jshint: {
-	        options: {
-				jshintrc: true,
-	            reporter: require('jshint-log-reporter')
-			},
-	        files: [
-				'lib/**/*.js',
-				'index.js',
+		eslint: {
+			target: [
+				'src/**/*.js',
+				'src/**/*.jsx',
+				'tests/**/*.js',
+				'*.js'
 			]
-	    },
+		},
 
 		webpack: wpcfg,
 
@@ -39,15 +38,15 @@ module.exports = function(grunt) {
 				watch: true,
 				keepAlive: true,
 				port: 8000,
-				contentBase: __dirname + '/tests/app/',
+				contentBase: path.resolve(__dirname, 'tests/app/'),
 				webpack: {
 					debug: true,
 					publicPath: '/',
-					entry: __dirname + '/tests/app/index.js',
+					entry: path.join(__dirname, 'tests/app/index.js'),
 					output: {
 						path: '/tests/app/',
-						filename: "index.js",
-					},
+						filename: 'index.js'
+					}
 				}
 			}
 		}
@@ -55,6 +54,6 @@ module.exports = function(grunt) {
 
 	//grunt.registerTask('docs',['jsdoc']);
 	grunt.registerTask('test', ['karma']);
-	grunt.registerTask('build', ['jshint', 'webpack']);
-	grunt.registerTask('default', ['jshint', 'webpack-dev-server:start']);
+	grunt.registerTask('build', ['eslint', 'webpack']);
+	grunt.registerTask('default', ['eslint', 'webpack-dev-server:start']);
 };

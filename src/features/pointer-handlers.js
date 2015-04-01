@@ -1,16 +1,19 @@
 
-var events = [
+const events = [
 	'Click',
 	'MouseDown',
 	'MouseUp',
 	'TouchEnd',
-	'TouchMove',
+	'TouchMove'
 ];
 
 
+const onGlobalPointerEvent = 'pointer-handlers:GlobalPointerEvent';
+const onTouched = 'pointer-handlers:onTouched';
+
 
 function isEventInNode(target, node) {
-	if (!target) {return false;}
+	if (!target) {return false; }
 	return target === node || isEventInNode(target.parentNode, node);
 }
 
@@ -18,35 +21,35 @@ function isEventInNode(target, node) {
 export default {
 
 	componentWillMount () {
-		var fn = this.__onTouched;
-		var map = (x, e)=>{ x[`on${e}`]=fn; return x;};
+		let fn = this[onTouched];
+		let map = (x, e)=>{ x[`on${e}`] = fn; return x; };
 
 		this.registerHandlers(events.reduce(map, {}));
 	},
 
 
 	componentDidMount () {
-		events.forEach(event=>window.addEventListener(event.toLowerCase(), this.__onGlobalPointerEvent));
+		events.forEach(event=>window.addEventListener(event.toLowerCase(), this[onGlobalPointerEvent]));
 	},
 
 	componentWillUnmount () {
-		events.forEach(event=>window.removeEventListener(event.toLowerCase(), this.__onGlobalPointerEvent));
+		events.forEach(event=>window.removeEventListener(event.toLowerCase(), this[onGlobalPointerEvent]));
 	},
 
 
-	__onTouched (e) {
+	[onTouched] (e) {
 		if (!this.hasSelection() && !isEventInNode(e.target, this.getEditorNode())) {
 			this.putCursorAtTheEnd();
 		}
 	},
 
 
-	__onGlobalPointerEvent (e) {
-		var {target} = e;
-		if (!this.isMounted()) {return;}
+	[onGlobalPointerEvent] (e) {
+		let {target} = e;
+		if (!this.isMounted()) { return; }
 
-		var isEventWithin = false;
-		var editorFrame = this.getDOMNode();
+		let isEventWithin = false;
+		let editorFrame = this.getDOMNode();
 
 		while(target && !isEventWithin) {
 			isEventWithin = editorFrame === target;

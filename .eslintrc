@@ -1,0 +1,61 @@
+{
+	"parser": "babel-eslint",
+	"env": {
+		"node": true,
+		"browser": true,
+		"jasmine": true,
+		"es6": true
+	},
+
+	"ecmaFeatures": {
+		"arrowFunctions": true,
+		"binaryLiterals": true,
+		"blockBindings": true,
+		"classes": true,
+		"defaultParams": true,
+		"destructuring": true,
+		"forOf": true,
+		"generators": false,
+		"modules": true,
+		"objectLiteralComputedProperties": true,
+		"objectLiteralDuplicateProperties": true,
+		"objectLiteralShorthandMethods": true,
+		"objectLiteralShorthandProperties": true,
+		"octalLiterals": true,
+		"regexUFlag": false,
+		"regexYFlag": false,
+		"spread": true,
+		"superInFunctions": true,
+		"templateStrings": true,
+		"unicodeCodePointEscapes": true,
+		"globalReturn": false,
+		"jsx": true
+	},
+
+	"rules": {
+		"camelcase": [2, {"properties": "always"}],/*default*/
+		"curly": [2, "all"],/*default*/
+		"eqeqeq": [2, "allow-null"],
+		"indent": [2, "tab"],
+		"guard-for-in": 2,
+		"new-cap": 0,
+		"no-bitwise": 2,
+		"no-caller": 2,/*default*/
+		"no-console": 0,
+		"no-empty": 2,/*default*/
+		"no-extend-native": 2,/*default*/
+		"no-inner-declarations": 2,/*default*/
+		"no-irregular-whitespace": 2,/*default*/
+		"no-new": 2,/*default*/
+		"no-throw-literal": 2,
+		"no-undef": 2,/*default*/
+		"no-underscore-dangle": 1,
+		"no-unused-vars": 2,/*default*/
+		"no-use-before-define": 1,
+		"no-var": 2,
+		"quotes": "single",
+		"strict": "never",
+		"wrap-iife": [2, "outside"],
+		"valid-jsdoc": 1
+	}
+}

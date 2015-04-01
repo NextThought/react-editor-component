@@ -1,4 +1,5 @@
-
+/*eslint no-var: 0*/
+var path = require('path');
 var stat = {
 	version: false,
 	hash: false,
@@ -82,8 +83,8 @@ module.exports = function (config) {
 			stats: stat,
 
 			resolve: {
-				root: __dirname + '/src',
-				extensions: ['', '.js','.jsx']
+				root: path.resolve(__dirname, 'src'),
+				extensions: ['', '.js', '.jsx']
 			},
 
 			module: {

@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import emptyFunction from 'react/lib/emptyFunction';
 
 import Core from './features/core';
@@ -60,7 +60,7 @@ export default React.createClass({
 
 
 	render () {
-		var classes = [
+		let classes = [
 			'editor',
 			this.props.className,
 			...this.getStateClasses()

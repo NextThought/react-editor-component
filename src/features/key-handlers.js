@@ -1,16 +1,18 @@
 
+const onKeyPress = 'key-handlers:OnKeyPressHandler';//Not a Symbol because Symbols cannot be enumerated.
+
 export default {
 
 	componentWillMount () {
 		this.registerHandlers({
-			//onKeyDown: this.__onKeyPress,
-			onKeyUp: this.__onKeyPress,
-			onKeyPress: this.__onKeyPress
+			//onKeyDown: this[onKeyPress],
+			onKeyUp: this[onKeyPress],
+			onKeyPress: this[onKeyPress]
 		});
 	},
 
 
-	__onKeyPress (event) {
+	[onKeyPress] (event) {
 		this.wasInteractedWith();
 		if (event.key !== 'Unidentified') {
 			this.wasInteractedWith();

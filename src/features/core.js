@@ -1,9 +1,11 @@
 //import EventEmitter from 'events';
 
 function getStateClassResolvers (obj) {
-	var k = 'stateClassResolvers';
+	let k = 'stateClassResolvers';
 	return obj[k] || (obj[k] = []);
 }
+
+const interactionTimeout = Symbol('interaction timer');
 
 export default {
 
@@ -14,7 +16,7 @@ export default {
 
 
 	registerHandlers (dict) {
-		var handlers = this.getRegisteredHandlers();
+		let handlers = this.getRegisteredHandlers();
 
 		Object.keys(dict).forEach(x=>{
 			if (x in handlers) {
@@ -56,7 +58,7 @@ export default {
 
 
 	wasInteractedWith () {
-		clearTimeout(this._interactionTimeout);
+		clearTimeout(this[interactionTimeout]);
 
 		let force = !this.hasSelection();
 
@@ -64,17 +66,17 @@ export default {
 			fn=>fn()||0 :
 			fn=>setTimeout(fn, 1000);
 
-		this._interactionTimeout = schedual(()=>{
+		this[interactionTimeout] = schedual(()=>{
 			if (this.isMounted()) {
 				let getVal = x => (Array.isArray(x) ? x.join('') : x) || null;
 
 				let curr = getVal(this.getValue());
-				let prev = getVal(this.state._previousValue);
+				let prev = getVal(this.state.previousValue);
 
 				if (prev !== curr || force) {
 					//console.debug('Notifying onChange, flush: ', !timeout);
 					this.props.onChange(prev, curr);
-					this.setState({_previousValue: curr});
+					this.setState({previousValue: curr});
 				}
 			}
 
@@ -85,7 +87,7 @@ export default {
 
 
 	getEditorNode () {
-		var {editor} = this.refs;
+		let {editor} = this.refs;
 		return editor && editor.isMounted() && editor.getDOMNode();
 	},
 

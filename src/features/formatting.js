@@ -1,5 +1,5 @@
 
-var FORMATS = [
+const FORMATS = [
 	'bold',
 	'italic',
 	'underline'
@@ -55,12 +55,12 @@ export default {
 		e.preventDefault();
 		e.stopPropagation();
 
-		var sel = this[savedSelection];
+		let sel = this[savedSelection];
 		if (sel){
 			this.restoreSelection(sel);
 		}
 
-		var style = e.target.getAttribute('data-format');
+		let style = e.target.getAttribute('data-format');
 		this.applyFormat(style);
 
 		this.wasInteractedWith();
