@@ -53,6 +53,7 @@ module.exports = function(grunt) {
 	});
 
 	//grunt.registerTask('docs',['jsdoc']);
+	grunt.registerTask('lint', ['eslint']);
 	grunt.registerTask('test', ['karma']);
 	grunt.registerTask('build', ['eslint', 'webpack']);
 	grunt.registerTask('default', ['eslint', 'webpack-dev-server:start']);
