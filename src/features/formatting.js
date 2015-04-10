@@ -1,3 +1,4 @@
+import React from 'react';
 
 const FORMATS = [
 	'bold',
@@ -9,6 +10,18 @@ const savedSelection = Symbol('savedSelection');
 
 
 export default {
+
+	childContextTypes: {
+		setFormat: React.PropTypes.func
+	},
+
+
+	getChildContext () {
+		return {
+			setFormat: this.onSetFormat
+		};
+	},
+
 
 	componentWillMount () {
 		this.registerStateClassResolver(

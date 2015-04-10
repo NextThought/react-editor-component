@@ -7,7 +7,10 @@ export default React.createClass({
 
 
 	propTypes: {
-		editorFrame: React.PropTypes.node.isRequired,
+		editorFrame: React.PropTypes.shape({
+				hasSelection: React.PropTypes.func
+			}).isRequired,
+
 		content: React.PropTypes.string
 	},
 

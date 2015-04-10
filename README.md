@@ -5,9 +5,9 @@ Progress:
 - [x] Initial Editor
 - [x] Get the editor's base functionality working in React 0.12.x
 - [x] The interface is: `<Editor value={...} onChange={}/>`
+- [x] Flexible Toolbars/Format-buttons
 - [x] Copy (it's built in 😉)
 - [ ] Paste
-- [ ] There will be optional `render{Bottom|Top}Toolbar` callback props that will let the toolbars to be costomized. (added to, or substituted)
 
 
 ##### File naming conventions:
@@ -39,3 +39,44 @@ $ grunt
 
    [1]: //webpack.github.io
    [2]: //babeljs.org
+
+
+##### Toolbars
+
+```scss
+.editor {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+}
+
+.editor-pane {
+    margin:0;
+    padding:1em;
+    border : 1px solid #ccc;
+
+    &.north,
+    &.south {
+      flex: 1 100%;
+    }
+
+    &.east, &.west {
+      flex: 0 0 3em;
+    }
+
+    &.north { order: 0; }
+    &.south { order: 4; }
+    &.east { order: 3; }
+    &.west { order: 1; }
+
+    &.center {
+        flex: 1 1 auto;
+        order: 2;
+    }
+}
+```

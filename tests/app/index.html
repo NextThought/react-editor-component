@@ -21,16 +21,58 @@
 			background: blue;
 		}
 
+		.editor {
+			display: -webkit-box;
+			display: -moz-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-flex-flow: row wrap;
+			flex-flow: row wrap;
+		}
+
+		.editor-pane {
+			margin: 0;
+			padding: 0;
+			background: #f8f8f8;
+		}
+		.editor-pane.north, .editor-pane.south {
+			flex: 1 100%;
+		}
+		.editor-pane.north {
+			order: 0;
+		}
+		.editor-pane.south {
+			order: 4;
+		}
+		.editor-pane.east, .editor-pane.west {
+			flex: 0 1 auto;
+		}
+		.editor-pane.east { order: 3; }
+		.editor-pane.west { order: 1; }
+		.editor-pane.center {
+			flex: 1 1 auto;
+			order: 2;
+		}
+
 		[contenteditable] {
+			background: #fff;
 			white-space: pre;
 			border: 1px solid #ccc;
 			min-height: 1rem;
 			padding: 0.5em;
 		}
+
+		#content2 {
+			margin-top: 3rem;
+		}
 	</style>
 </head>
 <body>
 	<div id="content"></div>
+
+
+	<div id="content2"></div>
 	<script type="text/javascript" src="index.js"></script>
 </body>
 </html>
