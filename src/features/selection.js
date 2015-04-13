@@ -59,11 +59,11 @@ function isRangeWithinNode (range, node, inclusive=true) {
 
 function isRangeStillValid (range, node) {
 
-	const isCollapsedBeforeNode = node =>
+	const isCollapsedBeforeNode = n =>
 			// If a range has the same end/start points it is collapsed
 			range.collapsed &&
-			// If the endpoint container is the given node, and the offset is 0
-			range.startContainer === node &&
+			// If the endpoint container is the given n, and the offset is 0
+			range.startContainer === n &&
 			range.startOffset === 0;
 
 
