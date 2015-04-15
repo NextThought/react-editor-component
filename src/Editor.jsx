@@ -48,7 +48,13 @@ export default React.createClass({
 		onPrepareValueChunkCallback: React.PropTypes.func,
 
 
-		onPartValueParseCallback: React.PropTypes.func
+		onPartValueParseCallback: React.PropTypes.func,
+
+
+		className: React.PropTypes.string,
+
+
+		children: React.PropTypes.arrayOf(React.PropType.node)
 	},
 
 

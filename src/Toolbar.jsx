@@ -32,7 +32,7 @@ export default React.createClass({
 	render () {
 		let {defaultSet, children, region} = this.props;
 		let props = {
-			className: cx('editor-pane', region)
+			className: cx('editor-pane', 'toolbar', region)
 		};
 
 		if (!defaultSet && (!children || children.length === 0)) {
