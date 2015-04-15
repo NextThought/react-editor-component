@@ -11,13 +11,20 @@ export const REGIONS = {
 	WEST: 'west'
 };
 
+
+function isEmpty(c) {
+	return Array.isArray(c) ? c.length === 0 : !c;
+}
+
+
 export default React.createClass({
 	displayName: 'Toolbar',
 
 
 	propTypes: {
 		defaultSet: React.PropTypes.bool,
-		region: React.PropTypes.any.isRequired
+		region: React.PropTypes.any.isRequired,
+		children: React.PropTypes.array
 	},
 
 
@@ -39,7 +46,9 @@ export default React.createClass({
 			return null;
 		}
 
-		return React.createElement('div', props, ...this.renderChildren());
+		let result = React.createElement('div', props, ...this.renderChildren());
+
+		return isEmpty(result.props.children) ? null : result;
 	},
 
 
