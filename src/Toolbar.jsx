@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import FormatButton from './FormatButton';
 
-export const SIDES = {
+export const REGIONS = {
 	NORTH: 'north',
 	SOUTH: 'south',
 	EAST: 'east',
@@ -25,7 +25,7 @@ export default React.createClass({
 		let {region} = this.props;
 		let dest = element.props.region;
 
-		return dest === region || (region === SIDES.SOUTH && (!dest || dest == null));
+		return dest === region || (region === REGIONS.SOUTH && (!dest || dest == null));
 	},
 
 

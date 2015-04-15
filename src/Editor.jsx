@@ -10,7 +10,7 @@ import PointerHandler from './features/pointer-handlers';
 import Selection from './features/selection';
 
 import ContentEditable from './ContentEditable';
-import Toolbar, {SIDES} from './Toolbar';
+import Toolbar, {REGIONS} from './Toolbar';
 
 export default React.createClass({
 	displayName: 'Editor',
@@ -78,13 +78,13 @@ export default React.createClass({
 
 		return (
 			<div className={classes} {...this.getRegisteredHandlers()}>
-				<Toolbar region={SIDES.NORTH} children={children}/>
-				<Toolbar region={SIDES.EAST} children={children}/>
-				<Toolbar region={SIDES.WEST} children={children}/>
+				<Toolbar region={REGIONS.NORTH} children={children}/>
+				<Toolbar region={REGIONS.EAST} children={children}/>
+				<Toolbar region={REGIONS.WEST} children={children}/>
 
 				<ContentEditable className="editor-pane center" content={this.state.content} ref="editor" tabIndex="0" editorFrame={this}/>
 
-				<Toolbar region={SIDES.SOUTH} children={children} defaultSet={basicView}/>
+				<Toolbar region={REGIONS.SOUTH} children={children} defaultSet={basicView}/>
 			</div>
 		);
 	}
