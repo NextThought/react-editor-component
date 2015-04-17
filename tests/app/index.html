@@ -37,21 +37,58 @@
 			background: #f8f8f8;
 		}
 		.editor-pane.north, .editor-pane.south {
+			-webkit-box-flex: 1 100%;
+			-moz-box-flex: 1 100%;
+			-webkit-flex: 1 100%;
+			-ms-flex: 1 100%;
 			flex: 1 100%;
 		}
 		.editor-pane.north {
+			-webkit-box-ordinal-group: 0;
+			-moz-box-ordinal-group: 0;
+			-ms-flex-order: 0;
+			-webkit-order: 0;
 			order: 0;
 		}
 		.editor-pane.south {
+			-webkit-box-ordinal-group: 4;
+			-moz-box-ordinal-group: 4;
+			-ms-flex-order: 4;
+			-webkit-order: 4;
 			order: 4;
 		}
 		.editor-pane.east, .editor-pane.west {
+			-webkit-box-flex: 0 1 auto;
+			-moz-box-flex: 0 1 auto;
+			-webkit-flex: 0 1 auto;
+			-ms-flex: 0 1 auto;
 			flex: 0 1 auto;
 		}
-		.editor-pane.east { order: 3; }
-		.editor-pane.west { order: 1; }
+		.editor-pane.east {
+			-webkit-box-ordinal-group: 3;
+			-moz-box-ordinal-group: 3;
+			-ms-flex-order: 3;
+			-webkit-order: 3;
+			order: 3;
+		}
+		.editor-pane.west {
+			-webkit-box-ordinal-group: 1;
+			-moz-box-ordinal-group: 1;
+			-ms-flex-order: 1;
+			-webkit-order: 1;
+			order: 1;
+		}
 		.editor-pane.center {
+			-webkit-box-flex: 1 1 auto;
+			-moz-box-flex: 1 1 auto;
+			-webkit-flex: 1 1 auto;
+			-ms-flex: 1 1 auto;
 			flex: 1 1 auto;
+
+			-webkit-box-ordinal-group: 2;
+			-moz-box-ordinal-group: 2;
+			-ms-flex-order: 2;
+			-webkit-order: 2;
 			order: 2;
 		}
 
@@ -63,14 +100,37 @@
 			padding: 0.5em;
 		}
 
+		*:not(input):not(textarea) {
+			-webkit-touch-callout: none;
+
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			-o-user-select: none;
+			user-select: none;
+		}
+
+		[contenteditable],
+		[contenteditable] * {
+			-webkit-user-select: text !important;
+			-moz-user-select: text !important;
+			-ms-user-select: text !important;
+			-o-user-select: text !important;
+			user-select: text !important;
+		}
+
 		#content2 {
 			margin-top: 3rem;
 		}
 	</style>
 </head>
 <body>
+	<h3>Editors</h3>
+
 	<div id="content"></div>
 
+
+	<p>Text in between</p>
 
 	<div id="content2"></div>
 	<script type="text/javascript" src="index.js"></script>
