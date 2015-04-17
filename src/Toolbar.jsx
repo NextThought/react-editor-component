@@ -1,5 +1,4 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
 import cx from 'classnames';
 
 import FormatButton from './FormatButton';
@@ -30,7 +29,8 @@ export default React.createClass({
 
 	isElementForRegion (element) {
 		let {region} = this.props;
-		let dest = element && element.props.region;
+		let {props} = element || {};
+		let dest = props && props.region;
 
 		return dest === region || (region === REGIONS.SOUTH && (!dest || dest == null));
 	},
@@ -64,8 +64,8 @@ export default React.createClass({
 		}
 
 		return children
-			.filter(x => this.isElementForRegion(x))
-			.map(x => cloneWithProps(x));
+			.filter(x => x && this.isElementForRegion(x))
+			.map(x => React.cloneElement(x));
 	},
 
 
