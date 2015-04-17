@@ -48,6 +48,7 @@ export default {
 
 
 	componentWillMount () {
+		this.registerStateClassResolver(()=>this.state.busy? 'busy' : '');
 		this.registerHandlers({
 			onBlur: () => {
 				this.wasInteractedWith();
@@ -99,5 +100,17 @@ export default {
 
 	getValue () {
 		return this.parseValue(this.getEditorNode());
+	},
+
+
+	markBusy () {
+		if (this.state.busy) {
+			throw new Error('Already Busy');
+		}
+		this.setState({busy: true});
+	},
+
+	clearBusy () {
+		this.setState({busy: false});
 	}
 };
