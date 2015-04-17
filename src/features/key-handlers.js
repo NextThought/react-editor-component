@@ -13,7 +13,6 @@ export default {
 
 
 	[onKeyPress] (event) {
-		this.wasInteractedWith();
 		if (event.key !== 'Unidentified') {
 			this.wasInteractedWith();
 			this.handleKeyEvent(event);

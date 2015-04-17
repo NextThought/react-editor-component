@@ -99,7 +99,7 @@ function prepareValue (node, onPrepareValueChunk) {
 			let include = true;
 
 			if (onPrepareValueChunk) {
-				part = onPrepareValueChunk(part, el.cloneNode(true));
+				part = onPrepareValueChunk(part, el);
 			}
 
 			if (typeof part === 'string') {

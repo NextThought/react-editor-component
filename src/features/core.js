@@ -7,6 +7,8 @@ function getStateClassResolvers (obj) {
 
 const interactionTimeout = Symbol('interaction timer');
 
+const update = 'editor:update';
+
 export default {
 
 	getRegisteredHandlers () {
@@ -63,26 +65,29 @@ export default {
 		let force = !this.hasSelection();
 
 		let schedual = force ?
-			fn=>fn()||0 :
+			fn=>fn(force)||0 :
 			fn=>setTimeout(fn, 1000);
 
-		this[interactionTimeout] = schedual(()=>{
-			if (this.isMounted()) {
-				let getVal = x => (Array.isArray(x) ? x.join('') : x) || null;
-
-				let curr = getVal(this.getValue());
-				let prev = getVal(this.state.previousValue);
-
-				if (prev !== curr || force) {
-					//console.debug('Notifying onChange, flush: ', !timeout);
-					this.props.onChange(prev, curr);
-					this.setState({previousValue: curr});
-				}
-			}
-
-		});
+		this[interactionTimeout] = schedual(this[update]);
 
 		this.forceUpdate();//needed to update state of format buttons
+	},
+
+
+	[update] (force) {
+		if (this.isMounted()) {
+			let getVal = x => (Array.isArray(x) ? x.join('') : x) || null;
+
+			let curr = getVal(this.getValue());
+			let prev = getVal(this.state.previousValue);
+
+			if (prev !== curr || force) {
+				//console.debug('Notifying onChange, flush: ', !timeout);
+				this.props.onChange(prev, curr);
+				this.setState({previousValue: curr});
+			}
+		}
+
 	},
 
 
