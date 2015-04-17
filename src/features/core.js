@@ -69,12 +69,11 @@ export default {
 			fn=>setTimeout(fn, 1000);
 
 		this[interactionTimeout] = schedual(this[update]);
-
-		this.forceUpdate();//needed to update state of format buttons
 	},
 
 
 	[update] (force) {
+
 		if (this.isMounted()) {
 			let getVal = x => (Array.isArray(x) ? x.join('') : x) || null;
 
@@ -86,8 +85,9 @@ export default {
 				this.props.onChange(prev, curr);
 				this.setState({previousValue: curr});
 			}
-		}
 
+			this.setState({interaction: new Date()});
+		}
 	},
 
 

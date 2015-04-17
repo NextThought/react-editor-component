@@ -1,6 +1,8 @@
 
 const onKeyPress = 'key-handlers:OnKeyPressHandler';//Not a Symbol because Symbols cannot be enumerated.
 
+const bufferedKeyHandling = Symbol('bufferedKeyHandling');
+
 export default {
 
 	componentWillMount () {
@@ -14,13 +16,19 @@ export default {
 
 	[onKeyPress] (event) {
 		if (event.key !== 'Unidentified') {
-			this.wasInteractedWith();
 			this.handleKeyEvent(event);
 		}
 	},
 
 
-	handleKeyEvent () {
+	handleKeyEvent (/*event*/) {
+		clearTimeout(this[bufferedKeyHandling]);
+
+		this[bufferedKeyHandling] = setTimeout(()=>{
+
+			this.wasInteractedWith();
+
+		}, 500);
 	}
 
 };
