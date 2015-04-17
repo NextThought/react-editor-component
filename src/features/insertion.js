@@ -1,3 +1,4 @@
+import {PLACEHOLDER} from './constants';
 
 export default {
 
@@ -24,6 +25,8 @@ export default {
 			range.collapse(false);
 
 			let el = document.createElement('div');
+			let newline = document.createElement('div');
+			newline.appendChild(document.createTextNode(PLACEHOLDER));
 
 			if (typeof nodeOrMarkup === 'string') {
 
@@ -46,6 +49,8 @@ export default {
 			for (let i = 0, {length} = el.childNodes; i < length; i++) {
 				parentNode.insertBefore(el.firstChild, el);
 			}
+
+			parentNode.insertBefore(newline, el);
 
 			parentNode.removeChild(el);
 
