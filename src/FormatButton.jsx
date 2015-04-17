@@ -1,7 +1,8 @@
 import React from 'react';
+import cloneWithProps from 'react/lib/cloneWithProps';
 
 const clone = x =>
-	typeof x === 'string' ? x : React.cloneElement(x);
+	typeof x === 'string' ? x : cloneWithProps(x);
 
 
 export default React.createClass({
