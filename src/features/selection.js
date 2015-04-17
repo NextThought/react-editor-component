@@ -421,6 +421,9 @@ export default {
 	},
 
 
+	focus () { this.putCursorAtTheEnd(); },
+
+
 	componentDidMount () {
 		this.componentNode = this.getDOMNode();
 	},
