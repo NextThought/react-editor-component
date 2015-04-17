@@ -1,7 +1,8 @@
 
 const BR = /<br[^>]*\/?>/ig;
 const REGEX_INITIAL_CHAR = /\u200B|\u2060/ig; //used to identify and strip out
-const placeholder = '\u200B';
+
+import {PLACEHOLDER} from './constants';
 
 
 function getSharedDOMParser(name='default') {
@@ -184,7 +185,7 @@ export default {
 
 	getInitialState () {
 		return {
-			content: `<div>${placeholder}</div>`
+			content: `<div>${PLACEHOLDER}</div>`
 		};
 	},
 
