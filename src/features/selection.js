@@ -243,7 +243,8 @@ function parseNodePath(path, root, preupdateSnapshot) {
 		//Maybe the dom shifted...(normalized)
 		if (tag==='DIV' && index==='1' && !nextNode && node===root) {
 			nextNode = node.firstChild;
-			let offsetPrefix = preupdateSnapshot.firstChild.childNodes.length + 1;
+			// let offsetPrefix = preupdateSnapshot.firstChild.childNodes.length + 1;
+			let offsetPrefix = (preupdateSnapshot || 0) + 1;
 
 			if (!path.length) {
 				offset += offsetPrefix;
@@ -365,7 +366,7 @@ export default {
 		if (range) {
 			range = {
 				range: range,
-				snap: node.cloneNode(true),
+				snap: ((node.firstChild || {}).childNodes || []).length,//node.cloneNode(true),
 				start: serializeNodePath(range.startContainer, range.startOffset, node),
 				end: serializeNodePath(range.endContainer, range.endOffset, node)
 			};
