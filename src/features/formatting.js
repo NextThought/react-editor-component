@@ -6,7 +6,7 @@ const FORMATS = [
 	'underline'
 ];
 
-const savedSelection = Symbol('savedSelection');
+import {SAVED_SELECTION} from './constants';
 
 
 export default {
@@ -40,7 +40,7 @@ export default {
 				//save cursor on blur
 				let s = this.saveSelection();
 				if (s) {
-					this[savedSelection] = s;
+					this[SAVED_SELECTION] = s;
 				}
 			}
 		});
@@ -68,7 +68,7 @@ export default {
 		e.preventDefault();
 		e.stopPropagation();
 
-		let sel = this[savedSelection];
+		let sel = this[SAVED_SELECTION];
 		if (sel){
 			this.restoreSelection(sel);
 		}

@@ -51,6 +51,7 @@ export default {
 
 			parentNode.removeChild(el);
 
+			this.wasInteractedWith();
 			return true;
 		}
 
