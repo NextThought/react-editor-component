@@ -30,7 +30,7 @@ export default React.createClass({
 
 	isElementForRegion (element) {
 		let {region} = this.props;
-		let dest = element.props.region;
+		let dest = element && element.props.region;
 
 		return dest === region || (region === REGIONS.SOUTH && (!dest || dest == null));
 	},
