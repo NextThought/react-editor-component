@@ -3,9 +3,9 @@ import emptyFunction from 'react/lib/emptyFunction';
 
 import Core from './features/core';
 import Formatting from './features/formatting';
+import Insertion from './features/insertion';
 import KeyHandlers from './features/key-handlers';
 import Parsing from './features/parsing';
-import PasteHandlers from './features/paste-handlers';
 import PointerHandler from './features/pointer-handlers';
 import Selection from './features/selection';
 
@@ -18,9 +18,9 @@ export default React.createClass({
 	mixins: [
 		Core,
 		Formatting,
+		Insertion,
 		KeyHandlers,
 		Parsing,
-		PasteHandlers,
 		PointerHandler,
 		Selection
 	],
@@ -51,6 +51,9 @@ export default React.createClass({
 		onPartValueParseCallback: React.PropTypes.func,
 
 
+		onInsertionHookCallback: React.PropTypes.func,
+
+
 		className: React.PropTypes.string,
 
 
@@ -62,6 +65,18 @@ export default React.createClass({
 		return {
 			onChange: emptyFunction,
 			onBlur: emptyFunction
+		};
+	},
+
+
+	childContextTypes: {
+		editor: React.PropTypes.any
+	},
+
+
+	getChildContext () {
+		return {
+			editor: this
 		};
 	},
 
@@ -82,7 +97,7 @@ export default React.createClass({
 				<Toolbar region={REGIONS.EAST} children={children}/>
 				<Toolbar region={REGIONS.WEST} children={children}/>
 
-				<ContentEditable className="editor-pane center" content={this.state.content} ref="editor" tabIndex="0" editorFrame={this}/>
+				<ContentEditable className="editor-pane center" content={this.state.content} ref="editor" tabIndex="0"/>
 
 				<Toolbar region={REGIONS.SOUTH} children={children} defaultSet={basicView}/>
 			</div>

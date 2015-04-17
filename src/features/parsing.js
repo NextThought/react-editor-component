@@ -31,7 +31,16 @@ function buildValue (parts, onPartValueParse) {
 	for (let i = 0, len = parts.length; i < len; i++) {
 		let part = parts[i];
 
-		if (!onPartValueParse || !onPartValueParse(part)) {
+		let processed = onPartValueParse && onPartValueParse(part);
+		if (processed) {
+			if (Array.isArray(processed)) {
+				result.push(...processed);
+			} else {
+				result.push(processed);
+			}
+
+		} else {
+
 			part = stripTrailingBreak(part);
 
 			// if this is the first part or the thing before us
@@ -86,16 +95,25 @@ function prepareValue (node, onPrepareValueChunk) {
 		let {nodeType} = el;
 		let html = el[nodeType === 3 ? 'textContent' : 'innerHTML' ] || '';
 		try {
+			let part = html;
+			let include = true;
+
 			if (onPrepareValueChunk) {
-				//don't let manipulations here effect the dom
-				html = onPrepareValueChunk(html, el.cloneNode(true));
+				part = onPrepareValueChunk(part, el.cloneNode(true));
 			}
 
-			let parsed = html.replace(REGEX_INITIAL_CHAR, '');
+			if (typeof part === 'string') {
+				let parsed = part.replace(REGEX_INITIAL_CHAR, '');
 
-			//if the html was only the no width space don't add it to the parts
-			if (!(html.length === 1 && parsed.length === 0)) {
-				out.push(html);
+				//if the html was only the no width space don't add it to the parts
+				include = !(part.length === 1 && parsed.length === 0);
+			}
+			else {
+				include = part != null;
+			}
+
+			if (include) {
+				out.push(part);
 			}
 		}
 		catch (er) {

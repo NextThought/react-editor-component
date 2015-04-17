@@ -1,16 +1,13 @@
 import React from 'react';
 
-
+import Mixin from './ToolMixin';
 
 export default React.createClass({
 	displayName: 'ContentEditable',
+	mixins: [Mixin],
 
 
 	propTypes: {
-		editorFrame: React.PropTypes.shape({
-				hasSelection: React.PropTypes.func
-			}).isRequired,
-
 		content: React.PropTypes.string
 	},
 
@@ -19,7 +16,7 @@ export default React.createClass({
 		//If there is a cursor/selection within the
 		// editor, we do NOT want to update.
 		// TODO: Refactor to where THIS component manages selection
-		return !this.props.editorFrame.hasSelection();
+		return !this.getEditor().hasSelection();
 	},
 
 
