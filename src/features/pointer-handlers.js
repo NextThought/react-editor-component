@@ -38,6 +38,8 @@ export default {
 
 
 	[onTouched] (e) {
+		e.stopPropagation();
+
 		if (!this.hasSelection() && !isEventInNode(e.target, this.getEditorNode())) {
 			this.putCursorAtTheEnd();
 		}
