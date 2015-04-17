@@ -17,11 +17,9 @@ export default {
 		let {onInsertionHookCallback} = this.props;
 		let content = this.getEditorNode();
 
-		let sel = this.getSelection();
+		let range = this.getSelection();
 
-		if (sel && sel.getRangeAt && sel.rangeCount) {
-			let range = sel.getRangeAt(0);
-
+		if (range) {
 			range.deleteContents();
 			range.collapse(false);
 
