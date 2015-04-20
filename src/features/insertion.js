@@ -18,7 +18,7 @@ export default {
 		let {onInsertionHookCallback} = this.props;
 		let content = this.getEditorNode();
 
-		let range = this.getSelection();
+		let range = this.getSelection() || this.putCursorAtTheEnd();
 
 		if (range) {
 			range.deleteContents();
@@ -55,10 +55,10 @@ export default {
 			parentNode.removeChild(el);
 
 			this.wasInteractedWith();
-			return true;
+			return newline;
 		}
 
-		return false;
+		return void 0;
 	}
 
 };

@@ -89,7 +89,7 @@ function isRangeStillValid (range, node) {
  */
 function flattenedNthCount(node, container) {
 	//converts `n`s childNodes NodeList to an Array
-	let nodes = x=> Array.from(x? x.childNodes: 0);
+	let nodes = x=> Array.from(x ? x.childNodes : 0);
 	let count = -1;
 
 	let combiner = (a, n)=> a.concat(n, nodes(n).reduce(combiner, []));
@@ -165,6 +165,12 @@ function findNode(crumb, root) {
 	return findNodeSeach(crumb, root, ...callbacks);
 }
 
+
+function nodeIndex (n) {
+	return Array.from((n.parentNode||0).childNodes||0).indexOf(n);
+}
+
+
 /**
  * This is intended for react updates only... where we need to rebuild a range
  * after the dom has been rerenderd beneath us.  This is not meant to serve as
@@ -172,7 +178,6 @@ function findNode(crumb, root) {
  * mostly minor dom changes.
  */
 function serializeNodePath (node, offset, root) {
-	let nodeIndex = n => Array.from((n.parentNode||0).childNodes||0).indexOf(n);
 	let textNode = node.nodeType === 3;//Node.TEXT_NODE;
 	let path = [];
 
@@ -409,7 +414,7 @@ export default {
 	putCursorAtTheEnd () {
 		let node = this.getEditorNode();
 		if (!node) {
-			return;
+			return void 0;
 		}
 
 		let range = document.createRange();
@@ -419,6 +424,7 @@ export default {
 		let selection = window.getSelection();
 		selection.removeAllRanges();
 		selection.addRange(range);
+		return range;
 	},
 
 
