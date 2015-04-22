@@ -60,7 +60,6 @@ export default {
 
 		if (!isEventWithin && this.hasSelection()) {
 			this.wasInteractedWith();
-			this.clearSelection();
 		}
 	}
 
