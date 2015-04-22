@@ -1,3 +1,4 @@
+import React from 'react';
 //import EventEmitter from 'events';
 
 function getStateClassResolvers (obj) {
@@ -94,7 +95,7 @@ export default {
 
 	getEditorNode () {
 		let {editor} = this.refs;
-		return editor && editor.isMounted() && editor.getDOMNode();
+		return editor && editor.isMounted() && React.findDOMNode(editor);
 	},
 
 

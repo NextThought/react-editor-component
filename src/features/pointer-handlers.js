@@ -1,3 +1,4 @@
+import React from 'react';
 
 const events = [
 	'Click',
@@ -80,7 +81,7 @@ export default {
 		if (!this.isMounted()) { return; }
 
 		let isEventWithin = false;
-		let editorFrame = this.getDOMNode();
+		let editorFrame = React.findDOMNode(this);
 
 		while(target && !isEventWithin) {
 			isEventWithin = editorFrame === target;
