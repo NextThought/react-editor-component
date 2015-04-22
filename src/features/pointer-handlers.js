@@ -18,6 +18,29 @@ function isEventInNode(target, node) {
 }
 
 
+function getNonEditable (target, editorFrame) {
+	const attr = 'contenteditable';
+	while(target) {
+		if(editorFrame === target) {
+			target = null;
+			break;
+		}
+
+		if (target.hasAttribute && target.hasAttribute(attr)) {
+			let val = target.getAttribute(attr);
+
+			if (val === 'false') {
+				break;
+			}
+		}
+
+		target = target.parentNode;
+	}
+
+	return target;
+}
+
+
 export default {
 
 	componentWillMount () {
@@ -39,10 +62,16 @@ export default {
 
 	[onTouched] (e) {
 		e.stopPropagation();
+		let editorNode = this.getEditorNode();
+		let nonEditableTarget = getNonEditable(e.target, editorNode);
 
-		if (!this.hasSelection() && isEventInNode(e.target, this.getEditorNode())) {
+		if (!this.hasSelection() && isEventInNode(e.target, editorNode)) {
 			this.putCursorAtTheEnd();
 		}
+		else if (nonEditableTarget) {
+			this.putCursor(nonEditableTarget);
+		}
+
 	},
 
 

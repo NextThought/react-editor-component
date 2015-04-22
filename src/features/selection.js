@@ -411,6 +411,24 @@ export default {
 	},
 
 
+	putCursor (node, before = false) {
+		if (!node) {
+			return void 0;
+		}
+
+
+		let range = document.createRange();
+		range.selectNode(node);
+		//collapse(toStart: boolean);
+		range.collapse(before);
+
+		let selection = window.getSelection();
+		selection.removeAllRanges();
+		selection.addRange(range);
+		return range;
+	},
+
+
 	putCursorAtTheEnd () {
 		let node = this.getEditorNode();
 		if (!node) {
