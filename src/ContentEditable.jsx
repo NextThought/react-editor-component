@@ -20,11 +20,21 @@ export default React.createClass({
 	},
 
 
+	onFocus () {
+		let editor = this.getEditor();
+		let hasFocus = editor.hasSelection();
+		console.debug('Asked to focus. Does it currently have it?', hasFocus);
+
+		if (!hasFocus) {
+			editor.putCursorAtTheEnd();
+			React.findDOMNode(editor).scrollIntoView();
+		}
+	},
 
 
 	render () {
 		return (
-			<div {...this.props} contentEditable={true} content={null}
+			<div {...this.props} contentEditable={true} content={null} onFocus={this.onFocus}
 				dangerouslySetInnerHTML={{__html: this.props.content}}/>
 		);
 	}
