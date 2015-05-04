@@ -27,7 +27,7 @@
 	"homepage": "https://github.com/NextThought/react-editor-component",
 
 	"dependencies": {
-		"classnames": "^1.1.4"
+		"classnames": "^2.0.0"
 	},
 
 	"devDependencies": {
