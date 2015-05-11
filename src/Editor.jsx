@@ -29,7 +29,7 @@ export default React.createClass({
 	propTypes: {
 		/**
 		 * HTML value to put in the editor.
-		 * @type {String}
+		 * @type {string}
 		 */
 		value: React.PropTypes.string,
 
@@ -37,7 +37,7 @@ export default React.createClass({
 		/**
 		 * onChange - call back
 		 *
-		 * @type {Function}
+		 * @type {function}
 		 */
 		onChange: React.PropTypes.func,
 
