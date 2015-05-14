@@ -89,7 +89,7 @@ export default React.createClass({
 		].filter(x=>x).join(' ');
 
 
-		let basicView = !children || children.length===0; // if no custom children, show default toolbars
+		let basicView = React.Children.count(children) === 0; // if no custom children, show default toolbars
 
 		return (
 			<div className={classes} {...this.getRegisteredHandlers()}>

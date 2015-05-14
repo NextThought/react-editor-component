@@ -12,11 +12,6 @@ export const REGIONS = {
 };
 
 
-function isEmpty(c) {
-	return Array.isArray(c) ? c.length === 0 : !c;
-}
-
-
 export default React.createClass({
 	displayName: 'Toolbar',
 
@@ -33,7 +28,9 @@ export default React.createClass({
 		let {props} = element || {};
 		let dest = props && props.region;
 
-		return dest === region || (region === REGIONS.SOUTH && (!dest || dest == null));
+		return dest === region ||
+			(region === REGIONS.SOUTH && (!dest || dest == null)) ||
+			null;//make the false return be litterally null
 	},
 
 
@@ -47,9 +44,9 @@ export default React.createClass({
 			return null;
 		}
 
-		let result = React.createElement('div', props, ...this.renderChildren());
+		let result = React.createElement('div', props, this.renderChildren());
 
-		return isEmpty(result.props.children) ? null : result;
+		return React.Children.count(result.props.children) === 0 ? null : result;
 	},
 
 
@@ -60,17 +57,21 @@ export default React.createClass({
 			return this.renderDefaultSet();
 		}
 
-		if (!children || children.length === 0) {
+		if (React.Children.count(children) === 0) {
 			return [];
 		}
 
-		return children
-			.filter(x => x && this.isElementForRegion(x))
-			.map(x => cloneWithProps(x));
+		return React.Children.map(children,
+			//I want to stop using the cloneWithProps (since its deprecated) but until React stops warning
+			//about parent-vs-owner context I don't want to muddy the console. (This component is using the
+			//context correctly, its just the owner is not the parent of the toolbar content. The Owner
+			//is the component that renders the editor, the parent is the toolbar)
+			//TODO: replace cloneWithProps(x) with React.cloneElement(x) as soon as context warnings stop (or cloneWithProps is removed from react)
+			x => this.isElementForRegion(x) && cloneWithProps(x));//React.cloneElement(x));
 	},
 
 
 	renderDefaultSet () {
-		return ['bold', 'italic', 'underline'].map(f=> <FormatButton format={f}/>);
+		return ['bold', 'italic', 'underline'].map(f=> <FormatButton format={f} key={f}/>);
 	}
 });

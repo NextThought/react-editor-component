@@ -1,8 +1,7 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
 
 const clone = x =>
-	typeof x === 'string' ? x : cloneWithProps(x);
+	typeof x === 'string' ? x : React.cloneElement(x);
 
 
 export default React.createClass({
@@ -34,10 +33,8 @@ export default React.createClass({
 	renderLabel (code) {
 		let {children} = this.props;
 
-		if (children) {
-			return Array.isArray(children) ?
-				children.map(x=>clone(x)) :
-				[clone(children)];
+		if (React.Children.count(children) > 0) {
+			return React.Children.map(children, x=>clone(x));
 		}
 
 		return [code];
