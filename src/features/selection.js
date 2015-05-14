@@ -87,6 +87,7 @@ function isRangeStillValid (range, node) {
  *
  * @param {Node} node      The node to count
  * @param {Node} container The root to count from.
+ * @returns {number} count
  */
 function flattenedNthCount(node, container) {
 	//converts `n`s childNodes NodeList to an Array
@@ -172,7 +173,7 @@ function nodeIndex (n) {
 }
 
 
-/**
+/*
  * This is intended for react updates only... where we need to rebuild a range
  * after the dom has been rerenderd beneath us.  This is not meant to serve as
  * long-term range serialization. The save/restore just have to work across
@@ -461,7 +462,7 @@ export default {
 
 
 	/**
-	 * @returns true if the cursor or the selected range is completely within the editor.
+	 * @returns {boolean} true if the cursor or the selected range is completely within the editor.
 	 */
 	hasSelection () {
 		return this.componentNode && !!this.getSelection(this.componentNode);
