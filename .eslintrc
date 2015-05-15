@@ -38,6 +38,7 @@
 
 	"rules": {
 		"camelcase": [2, {"properties": "always"}],/*default*/
+		"consistent-return": 0,
 		"curly": [2, "all"],/*default*/
 		"eqeqeq": [2, "allow-null"],
 		"indent": [2, "tab"],
@@ -57,10 +58,13 @@
 		"no-unused-vars": 2,/*default*/
 		"no-use-before-define": [2, "nofunc"],
 		"no-var": 2,
-		"quotes": "single",
-		"strict": "never",
+		"quotes": [1, "single"],
+		"radix": 2,
+		"space-before-blocks": [1, "always"],
+		"strict": [2, "never"],
 		"wrap-iife": [2, "outside"],
 		"valid-jsdoc": 1,
+
 
 		"react/display-name": 1,
 		"react/jsx-boolean-value": 1,
@@ -73,9 +77,9 @@
 		"react/no-did-update-set-state": 1,
 		"react/no-multi-comp": 1,
 		"react/no-unknown-property": 1,
-		"react/prop-types": 1,
-		"react/react-in-jsx-scope": 1,
-		"react/self-closing-comp": 1,
-		"react/wrap-multilines": 1
+		"react/prop-types": 2,
+		"react/react-in-jsx-scope": 2,
+		"react/self-closing-comp": 2,
+		"react/wrap-multilines": 2
 	}
 }
