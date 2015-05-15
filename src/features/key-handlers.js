@@ -24,7 +24,7 @@ export default {
 	handleKeyEvent (/*event*/) {
 		clearTimeout(this[bufferedKeyHandling]);
 
-		this[bufferedKeyHandling] = setTimeout(()=>{
+		this[bufferedKeyHandling] = setTimeout(() => {
 
 			this.wasInteractedWith();
 

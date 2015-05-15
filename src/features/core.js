@@ -21,7 +21,7 @@ export default {
 	registerHandlers (dict) {
 		let handlers = this.getRegisteredHandlers();
 
-		Object.keys(dict).forEach(x=>{
+		Object.keys(dict).forEach(x => {
 			if (x in handlers) {
 				//console.debug('Chaining %s handlers', x);
 				let original = handlers[x],

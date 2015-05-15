@@ -69,7 +69,7 @@ export default {
 		e.stopPropagation();
 
 		let sel = this[SAVED_SELECTION];
-		if (sel){
+		if (sel) {
 			this.restoreSelection(sel);
 		}
 

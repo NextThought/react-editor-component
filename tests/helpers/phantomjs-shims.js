@@ -1,4 +1,4 @@
-/*eslint no-var:0, no-extra-strict: 0*/
+/*eslint no-var:0, no-extra-strict: 0, strict: 0*/
 (function() {
 	'use strict';
 	var Ap = Array.prototype;

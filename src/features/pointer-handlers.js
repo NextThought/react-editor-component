@@ -46,7 +46,7 @@ export default {
 
 	componentWillMount () {
 		let fn = this[onTouched];
-		let map = (x, e)=>{ x[`on${e}`] = fn; return x; };
+		let map = (x, e) => { x[`on${e}`] = fn; return x; };
 
 		this.registerHandlers(events.reduce(map, {}));
 	},

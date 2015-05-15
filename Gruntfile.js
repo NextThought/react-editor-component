@@ -1,5 +1,5 @@
+/*eslint no-var: 0, strict: 0*/
 'use strict';
-/*eslint no-var: 0*/
 var path = require('path');
 var wpcfg = require('./webpack.config');
 

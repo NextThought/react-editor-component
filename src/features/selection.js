@@ -335,7 +335,7 @@ export default {
 	},
 
 
-	getSelection(from){
+	getSelection (from) {
 		if (!window.getSelection) {
 			console.warn('Unsupported (Legacy) Selection Model');
 			return null;
