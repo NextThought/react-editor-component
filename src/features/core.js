@@ -49,7 +49,7 @@ export default {
 
 
 	componentWillMount () {
-		this.registerStateClassResolver(()=>this.state.busy? 'busy' : '');
+		this.registerStateClassResolver(()=>this.state.busy ? 'busy' : '');
 		this.registerHandlers({
 			onBlur: () => {
 				this.wasInteractedWith();
@@ -67,7 +67,7 @@ export default {
 		let force = !this.hasSelection();
 
 		let schedual = force ?
-			fn=>fn(force)||0 :
+			fn=>fn(force) || 0 :
 			fn=>setTimeout(fn, 1000);
 
 		this[interactionTimeout] = schedual(this[update]);

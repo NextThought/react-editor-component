@@ -115,7 +115,7 @@ function findNodeSeach(crumb, root, isKind, testNode=()=>true) {
 
 	// every returns true when its callback never returns false...
 	// meaning our search was not found) so lets flip the return value.
-	let eachNode = (x, fn) => !Array.from(x.childNodes||0).every(fn);
+	let eachNode = (x, fn) => !Array.from(x.childNodes || 0).every(fn);
 
 	//Iterate a node recursively for a node that satisfies isKind
 	// and is the `nth` node. So for a senario like this:
@@ -150,7 +150,7 @@ function findNodeSeach(crumb, root, isKind, testNode=()=>true) {
 
 
 function findNode(crumb, root) {
-	let isKindText = x => x.nodeType===3;//Node.TEXT_NODE;
+	let isKindText = x => x.nodeType === 3;//Node.TEXT_NODE;
 	let isKindNode = x => x.nodeName === crumb.node;
 
 	let testNodeText = x => x.textContent === crumb.text;
@@ -169,7 +169,7 @@ function findNode(crumb, root) {
 
 
 function nodeIndex (n) {
-	return Array.from((n.parentNode||0).childNodes||0).indexOf(n);
+	return Array.from((n.parentNode || 0).childNodes || 0).indexOf(n);
 }
 
 
@@ -208,7 +208,7 @@ function serializeNodePath (node, offset, root) {
 				break;
 			}
 
-			path.push(node.nodeName+'['+nodeIndex(node)+']');
+			path.push(`${node.nodeName}[${nodeIndex(node)}]`);
 			node = node.parentNode;
 		}
 	}
@@ -248,7 +248,7 @@ function parseNodePath(path, root, preupdateSnapshot) {
 
 		//HACK:
 		//Maybe the dom shifted...(normalized)
-		if (tag==='DIV' && index==='1' && !nextNode && node===root) {
+		if (tag === 'DIV' && index === '1' && !nextNode && node === root) {
 			nextNode = node.firstChild;
 			// let offsetPrefix = preupdateSnapshot.firstChild.childNodes.length + 1;
 			let offsetPrefix = (preupdateSnapshot || 0) + 1;
@@ -292,7 +292,7 @@ function parseRange (rangeish, root) {
 		if (part) {
 			let {node, offset} = part;
 
-			range['set'+cap(side)](node, offset);
+			range['set' + cap(side)](node, offset);
 		}
 		else {
 			throw new Error('Could not reconstitute endpoint.');

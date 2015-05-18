@@ -52,7 +52,7 @@ export default {
 			try {
 				return FORMATS
 					.filter(x=>document.queryCommandState(x))
-					.map(x=>'format-'+x)
+					.map(x => 'format-' + x)
 					.join(' ');
 
 			} catch (e) {
