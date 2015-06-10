@@ -26,7 +26,7 @@ export default React.createClass({
 			'data-format': format
 		};
 
-		return React.createElement('button', props, ...this.renderLabel(code));
+		return React.createElement('button', props, this.renderLabel(code));
 	},
 
 
@@ -37,6 +37,6 @@ export default React.createClass({
 			return React.Children.map(children, x=>clone(x));
 		}
 
-		return [code];
+		return code;
 	}
 });
