@@ -12,6 +12,12 @@ export const REGIONS = {
 };
 
 
+//React.cloneElement perserves the owner and refs... I would like to preserve them too...
+//but, we need the context of the Editor (parent), and React is still passing context by
+//Owner instead of by Parent. Until that switch happens, this has to use 'cloneWithProps'
+const cloneElement = x => cloneWithProps(x);
+
+
 export default React.createClass({
 	displayName: 'Toolbar',
 
@@ -62,12 +68,8 @@ export default React.createClass({
 		}
 
 		return React.Children.map(children,
-			//I want to stop using the cloneWithProps (since its deprecated) but until React stops warning
-			//about parent-vs-owner context I don't want to muddy the console. (This component is using the
-			//context correctly, its just the owner is not the parent of the toolbar content. The Owner
-			//is the component that renders the editor, the parent is the toolbar)
-			//TODO: replace cloneWithProps(x) with React.cloneElement(x) as soon as context warnings stop (or cloneWithProps is removed from react)
-			x => x && this.isElementForRegion(x) && cloneWithProps(x));//React.cloneElement(x));
+			x => x && this.isElementForRegion(x) && cloneElement(x)
+		);
 	},
 
 
