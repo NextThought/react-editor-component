@@ -67,7 +67,7 @@ export default React.createClass({
 			//context correctly, its just the owner is not the parent of the toolbar content. The Owner
 			//is the component that renders the editor, the parent is the toolbar)
 			//TODO: replace cloneWithProps(x) with React.cloneElement(x) as soon as context warnings stop (or cloneWithProps is removed from react)
-			x => this.isElementForRegion(x) && cloneWithProps(x));//React.cloneElement(x));
+			x => x && this.isElementForRegion(x) && cloneWithProps(x));//React.cloneElement(x));
 	},
 
 
