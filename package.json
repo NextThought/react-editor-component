@@ -2,7 +2,7 @@
   "name": "react-editor-component",
   "version": "0.1.0",
   "description": "A Rich Text Editor for ReactJS",
-  "main": "index.js",
+  "main": "./index.js",
   "dist": "dist/",
   "scripts": {
     "test": "grunt test"
@@ -29,9 +29,8 @@
     "classnames": "^2.0.0"
   },
   "devDependencies": {
-    "babel": "^5.0.12",
-    "babel-runtime": "^5.0.12",
-    "babel-loader": "^5.0.0",
+    "babel": ">=5.0.0",
+    "babel-loader": ">=5.0.0",
     "babel-eslint": ">=2.0.2",
     "eslint": ">=0.19.0",
     "eslint-plugin-react": ">=2.1.0",

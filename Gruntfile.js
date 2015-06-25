@@ -27,7 +27,9 @@ module.exports = function(grunt) {
 			]
 		},
 
-		webpack: wpcfg,
+		webpack: {
+			dist: wpcfg
+		},
 
 		'webpack-dev-server': {
 			options: {
