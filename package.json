@@ -41,7 +41,7 @@
     "grunt-webpack": "^1.0.8",
     "jasmine-core": "^2.2.0",
     "karma": "^0.12.31",
-    "karma-jasmine": "0.3.5",
+    "karma-jasmine": "^0.3.5",
     "karma-mocha-reporter": "^1.0.2",
     "karma-phantomjs-launcher": "^0.2.0",
     "karma-script-launcher": "^0.1.0",
