@@ -220,6 +220,21 @@ export default {
 		let intermediate = prepareValue(domNode, this.props.onPrepareValueChunkCallback);
 		let value = buildValue(intermediate, this.props.onPartValueParseCallback);
 
-		return value;
+		let output = [];
+
+		for (let v of value) {
+			let current = typeof v;
+			let lastType = typeof output[output.length - 1];
+
+			if (lastType === current && current === 'string') {
+				//start new string
+				output[output.length - 1] += `<br/>` + v;
+				continue;
+			}
+
+			output.push(v);
+		}
+
+		return output;
 	}
 };
