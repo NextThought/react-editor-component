@@ -6,6 +6,8 @@ function getStateClassResolvers (obj) {
 	return obj[k] || (obj[k] = []);
 }
 
+const LAST_INTERACTION = Symbol('Last Interaction');
+
 const interactionTimeout = Symbol('interaction timer');
 
 const update = 'editor:update';
@@ -83,12 +85,12 @@ export default {
 			let prev = getVal(this.state.previousValue);
 
 			if (prev !== curr || force) {
-				//console.debug('Notifying onChange, flush: ', !timeout);
+				// console.debug('Notifying onChange, flush');
 				this.props.onChange(prev, curr);
 				this.setState({previousValue: curr});
 			}
 
-			this.setState({interaction: new Date()});
+			this[LAST_INTERACTION] = new Date();
 		}
 	},
 
