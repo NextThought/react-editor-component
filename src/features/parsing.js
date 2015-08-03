@@ -5,12 +5,12 @@ const REGEX_INITIAL_CHAR = /\u200B|\u2060/ig; //used to identify and strip out
 import {PLACEHOLDER} from './constants';
 
 
-function getSharedDOMParser(name='default') {
+function getSharedDOMParser (name='default') {
 	return getSharedDOMParser[name] || (getSharedDOMParser[name] = document.createElement('div'));
 }
 
 
-function getSharedDOMParserWithValue(html, name='default') {
+function getSharedDOMParserWithValue (html, name='default') {
 	let dom = getSharedDOMParser(name);
 	dom.innerHTML = html;
 	return dom;
@@ -92,7 +92,7 @@ function prepareValue (node, onPrepareValueChunk) {
 	let buffer = [];
 
 
-	function parseAndAdd(el) {
+	function parseAndAdd (el) {
 		let {nodeType} = el;
 		let html = el[nodeType === 3 ? 'textContent' : 'innerHTML' ] || '';
 		try {
@@ -124,12 +124,12 @@ function prepareValue (node, onPrepareValueChunk) {
 
 	let inlineTags = /^(a|b|i|img|em|u|span|strong)$/;
 
-	function isInlineNode(n) {
+	function isInlineNode (n) {
 		let {nodeType, tagName} = n;
 		return nodeType === 3 || (nodeType === 1 && inlineTags.test(tagName));
 	}
 
-	function maybeFlushBuffer() {
+	function maybeFlushBuffer () {
 		if (buffer.length) {
 			let div = document.createElement('div');
 			buffer.forEach(e=>div.appendChild(e.cloneNode(true)));

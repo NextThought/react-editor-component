@@ -3,7 +3,7 @@
 var path = require('path');
 var wpcfg = require('./webpack.config');
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 	var pkgConfig = grunt.file.readJSON('package.json');
 
 	// Let *load-grunt-tasks* require everything

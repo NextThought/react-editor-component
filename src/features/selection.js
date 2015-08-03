@@ -1,7 +1,7 @@
 /*global Range*/
 import React from 'react';
 
-function isStartWithin(rangeA, rangeB, inclusive=true) {
+function isStartWithin (rangeA, rangeB, inclusive=true) {
 	//Comparing the startContainer of rangeB against the startContainer of rangeA:
 	let start = rangeA.compareBoundaryPoints(Range.START_TO_START, rangeB);
 	//Comparing the startContainer of rangeB against the endContainer of rangeA:
@@ -20,7 +20,7 @@ function isStartWithin(rangeA, rangeB, inclusive=true) {
 }
 
 
-function isEndWithin(rangeA, rangeB, inclusive=true) {
+function isEndWithin (rangeA, rangeB, inclusive=true) {
 	//Comparing the endContainer of rangeB against the endContainer of rangeA:
 	let end = rangeA.compareBoundaryPoints(Range.END_TO_END, rangeB);
 	//Comparing the endContainer of rangeB against the startContainer of rangeA:
@@ -39,7 +39,7 @@ function isEndWithin(rangeA, rangeB, inclusive=true) {
 }
 
 
-function isCompletelyWithin(rangeA, rangeB, inclusive=true) {
+function isCompletelyWithin (rangeA, rangeB, inclusive=true) {
 	return	isEndWithin(rangeA, rangeB, inclusive) &&
 			isStartWithin(rangeA, rangeB, inclusive);
 }
@@ -89,7 +89,7 @@ function isRangeStillValid (range, node) {
  * @param {Node} container The root to count from.
  * @returns {number} count
  */
-function flattenedNthCount(node, container) {
+function flattenedNthCount (node, container) {
 	//converts `n`s childNodes NodeList to an Array
 	let nodes = x=> Array.from(x ? x.childNodes : 0);
 	let count = -1;
@@ -107,7 +107,7 @@ function flattenedNthCount(node, container) {
 }
 
 
-function findNodeSeach(crumb, root, isKind, testNode=()=>true) {
+function findNodeSeach (crumb, root, isKind, testNode=()=>true) {
 	// sofar starts in the 'not found' state of -1. (to match the function flattenedNthCount above)
 	let node, sofar = -1;
 
@@ -149,7 +149,7 @@ function findNodeSeach(crumb, root, isKind, testNode=()=>true) {
 }
 
 
-function findNode(crumb, root) {
+function findNode (crumb, root) {
 	let isKindText = x => x.nodeType === 3;//Node.TEXT_NODE;
 	let isKindNode = x => x.nodeName === crumb.node;
 
@@ -217,7 +217,7 @@ function serializeNodePath (node, offset, root) {
 }
 
 
-function parseNodePath(path, root, preupdateSnapshot) {
+function parseNodePath (path, root, preupdateSnapshot) {
 	let offset;
 	if (typeof path !== 'string') {
 		return findNode(path, root);
@@ -230,7 +230,7 @@ function parseNodePath(path, root, preupdateSnapshot) {
 
 	let node = root;
 
-	function fixPath(p, n) {
+	function fixPath (p, n) {
 		return p.replace(/\[(\d+)\]$/m, (_, x) => parseInt(x, 10) + n);
 	}
 
@@ -287,7 +287,7 @@ function parseRange (rangeish, root) {
 	let cap = s => s.replace(/^./m, x=>x.toUpperCase());
 
 
-	function set(side, part, snapshot) {
+	function set (side, part, snapshot) {
 		part = parseNodePath(part, root, snapshot);
 		if (part) {
 			let {node, offset} = part;

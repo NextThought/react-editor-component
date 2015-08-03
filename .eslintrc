@@ -1,4 +1,5 @@
 {
+	"extends": "eslint:recommended",
 	"parser": "babel-eslint",
 	"env": {
 		"node": true,
@@ -18,9 +19,11 @@
 		"classes": true,
 		"defaultParams": true,
 		"destructuring": true,
+		"experimentalObjectRestSpread": true,
 		"forOf": true,
 		"generators": false,
 		"modules": true,
+		"newTarget": true,
 		"objectLiteralComputedProperties": true,
 		"objectLiteralDuplicateProperties": true,
 		"objectLiteralShorthandMethods": true,
@@ -37,30 +40,30 @@
 	},
 
 	"rules": {
-		"camelcase": [2, {"properties": "always"}],/*default*/
+		"camelcase": [2, {"properties": "always"}],
 		"consistent-return": 0,
-		"curly": [2, "all"],/*default*/
+		"curly": [2, "all"],
 		"eqeqeq": [2, "allow-null"],
 		"indent": [2, "tab"],
 		"guard-for-in": 2,
 		"new-cap": 0,
 		"no-bitwise": 2,
-		"no-caller": 2,/*default*/
+		"no-caller": 2,
 		"no-console": 0,
-		"no-empty": 2,/*default*/
-		"no-extend-native": 2,/*default*/
-		"no-inner-declarations": 2,/*default*/
-		"no-irregular-whitespace": 2,/*default*/
-		"no-new": 2,/*default*/
+		"no-extend-native": 2,
+		"no-new": 2,
+		"no-shadow": [1, {"builtinGlobals": false, "hoist": "never"}],
 		"no-throw-literal": 2,
-		"no-undef": 2,/*default*/
 		"no-underscore-dangle": 1,
-		"no-unused-vars": 2,/*default*/
 		"no-use-before-define": [2, "nofunc"],
 		"no-var": 2,
 		"quotes": [1, "single"],
 		"radix": 2,
+		"semi": 2,
 		"space-before-blocks": [1, "always"],
+		"space-before-function-paren": [1, {"anonymous": "always", "named": "always"}],
+		"space-infix-ops": [2, {"int32Hint": true}],
+		"space-unary-ops": [1, { "words": true, "nonwords": false }],
 		"strict": [2, "never"],
 		"wrap-iife": [2, "outside"],
 		"valid-jsdoc": 1,

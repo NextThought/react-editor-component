@@ -29,7 +29,7 @@ export default {
 				let original = handlers[x],
 					chained = dict[x];
 
-				dict[x] = function(...args) {// (...args) => {} produces a lint warning.
+				dict[x] = function (...args) {// (...args) => {} produces a lint warning.
 					original(...args);
 					chained(...args);
 				};

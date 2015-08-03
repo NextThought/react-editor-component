@@ -13,6 +13,7 @@ export default React.createClass({
 
 
 	propTypes: {
+		children: React.PropTypes.any,
 		format: React.PropTypes.string.isRequired
 	},
 

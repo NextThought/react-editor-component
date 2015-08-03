@@ -6,7 +6,7 @@ export default {
 		editor: React.PropTypes.any.isRequired
 	},
 
-	getEditor() {
+	getEditor () {
 		return this.context.editor;
 	}
 };

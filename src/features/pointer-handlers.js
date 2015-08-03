@@ -13,7 +13,7 @@ const onGlobalPointerEvent = 'pointer-handlers:GlobalPointerEvent';
 const onTouched = 'pointer-handlers:onTouched';
 
 
-function isEventInNode(target, node) {
+function isEventInNode (target, node) {
 	if (!target) {return false; }
 	return target === node || isEventInNode(target.parentNode, node);
 }
