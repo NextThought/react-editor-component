@@ -1,5 +1,5 @@
 /*global Range*/
-import React from 'react';
+import ReactDOM from 'react-dom';
 
 function isStartWithin (rangeA, rangeB, inclusive = true) {
 	//Comparing the startContainer of rangeB against the startContainer of rangeA:
@@ -452,7 +452,7 @@ export default {
 
 
 	componentDidMount () {
-		this.componentNode = React.findDOMNode(this);
+		this.componentNode = ReactDOM.findDOMNode(this);
 	},
 
 

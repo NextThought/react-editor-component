@@ -1,11 +1,12 @@
 import 'babel/polyfill';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Editor from 'Editor';
 
 import {REGIONS} from 'Toolbar';
 import Format from 'FormatButton';
 
-React.render(
+ReactDOM.render(
 	React.createElement(Editor, {},
 		React.createElement('button', {region: REGIONS.WEST}, 'X'),
 		React.createElement('button', {region: REGIONS.EAST}, 'Y'),
@@ -33,8 +34,7 @@ const Frame = React.createClass({
 
 
 	onChangeInput () {
-		let {refs: {value}} = this;
-		value = React.findDOMNode(value).value;
+		let {refs: {value: {value}}} = this;
 		this.setState({value});
 	},
 
@@ -59,7 +59,8 @@ const Frame = React.createClass({
 	}
 });
 
-React.render(
+
+ReactDOM.render(
 	React.createElement(Frame),
 	document.getElementById('content2')
 );

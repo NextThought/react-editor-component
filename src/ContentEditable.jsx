@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import Mixin from './ToolMixin';
 
@@ -20,6 +21,31 @@ export default React.createClass({
 	},
 
 
+	getHeight () {
+		return ReactDOM.findDOMNode(this.getEditor()).offsetHeight;
+	},
+
+
+	getY () {
+		let d = ReactDOM.findDOMNode(this.getEditor());
+		let y = 0;
+		do {
+			y += d.offsetTop;
+			d = d.offsetParent;
+		}
+		while(d);
+
+		return y;
+	},
+
+
+
+	scrollIntoView () {
+		let top = this.getY() - (this.getHeight() / 2) - (window.innerHeight / 2);
+		window.scrollTo(0, top);
+	},
+
+
 	onFocus () {
 		let editor = this.getEditor();
 		let hasFocus = editor.hasSelection();
@@ -27,7 +53,7 @@ export default React.createClass({
 
 		if (!hasFocus) {
 			editor.putCursorAtTheEnd();
-			React.findDOMNode(editor).scrollIntoView();
+			this.scrollIntoView();
 		}
 	},
 

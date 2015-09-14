@@ -1,5 +1,5 @@
 import React from 'react';
-import emptyFunction from 'react/lib/emptyFunction';
+import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import Core from './features/core';
 import Formatting from './features/formatting';
