@@ -68,10 +68,10 @@
 		"wrap-iife": [2, "outside"],
 		"valid-jsdoc": 1,
 
+		"jsx-quotes": [1, "prefer-double"],
 
 		"react/display-name": 1,
 		"react/jsx-boolean-value": 1,
-		"react/jsx-quotes": 1,
 		"react/jsx-no-undef": 1,
 		"react/jsx-sort-props": 0,
 		"react/jsx-uses-react": 1,

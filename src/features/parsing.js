@@ -5,12 +5,12 @@ const REGEX_INITIAL_CHAR = /\u200B|\u2060/ig; //used to identify and strip out
 import {PLACEHOLDER} from './constants';
 
 
-function getSharedDOMParser (name='default') {
+function getSharedDOMParser (name = 'default') {
 	return getSharedDOMParser[name] || (getSharedDOMParser[name] = document.createElement('div'));
 }
 
 
-function getSharedDOMParserWithValue (html, name='default') {
+function getSharedDOMParserWithValue (html, name = 'default') {
 	let dom = getSharedDOMParser(name);
 	dom.innerHTML = html;
 	return dom;

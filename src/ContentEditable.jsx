@@ -34,7 +34,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<div {...this.props} contentEditable={true} content={null} onFocus={this.onFocus}
+			<div {...this.props} contentEditable content={null} onFocus={this.onFocus}
 				dangerouslySetInnerHTML={{__html: this.props.content}}/>
 		);
 	}

@@ -19,7 +19,7 @@ export default React.createClass({
 
 
 	render () {
-		let {format='_'} = this.props;
+		let {format = '_'} = this.props;
 		let code = format.charAt(0).toUpperCase();
 
 		let props = {

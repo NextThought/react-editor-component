@@ -1,7 +1,7 @@
 /*global Range*/
 import React from 'react';
 
-function isStartWithin (rangeA, rangeB, inclusive=true) {
+function isStartWithin (rangeA, rangeB, inclusive = true) {
 	//Comparing the startContainer of rangeB against the startContainer of rangeA:
 	let start = rangeA.compareBoundaryPoints(Range.START_TO_START, rangeB);
 	//Comparing the startContainer of rangeB against the endContainer of rangeA:
@@ -20,7 +20,7 @@ function isStartWithin (rangeA, rangeB, inclusive=true) {
 }
 
 
-function isEndWithin (rangeA, rangeB, inclusive=true) {
+function isEndWithin (rangeA, rangeB, inclusive = true) {
 	//Comparing the endContainer of rangeB against the endContainer of rangeA:
 	let end = rangeA.compareBoundaryPoints(Range.END_TO_END, rangeB);
 	//Comparing the endContainer of rangeB against the startContainer of rangeA:
@@ -39,13 +39,13 @@ function isEndWithin (rangeA, rangeB, inclusive=true) {
 }
 
 
-function isCompletelyWithin (rangeA, rangeB, inclusive=true) {
+function isCompletelyWithin (rangeA, rangeB, inclusive = true) {
 	return	isEndWithin(rangeA, rangeB, inclusive) &&
 			isStartWithin(rangeA, rangeB, inclusive);
 }
 
 
-function isRangeWithinNode (range, node, inclusive=true) {
+function isRangeWithinNode (range, node, inclusive = true) {
 	if (node.ownerDocument !== range.commonAncestorContainer.ownerDocument) {
 		return false;
 	}
@@ -107,7 +107,7 @@ function flattenedNthCount (node, container) {
 }
 
 
-function findNodeSeach (crumb, root, isKind, testNode=()=>true) {
+function findNodeSeach (crumb, root, isKind, testNode = ()=>true) {
 	// sofar starts in the 'not found' state of -1. (to match the function flattenedNthCount above)
 	let node, sofar = -1;
 
