@@ -101,6 +101,16 @@ export default {
 	},
 
 
+	/**
+	 * The value will be an array of parts (Block elements devide the content).
+	 * Parts datatype will be based on what onPartValueParseCallback returns.
+	 * By default it should be all html fragments. But if the host application
+	 * wants to handle objects, this is flexible to allow that.
+	 *
+	 * This was inspired by multi-part email bodies.
+	 *
+	 * @returns {array} Body Parts -- an array of html fragment strings or objects.
+	 */
 	getValue () {
 		return this.parseValue(this.getEditorNode());
 	},
