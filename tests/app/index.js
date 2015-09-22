@@ -28,17 +28,28 @@ const Frame = React.createClass({
 		//The value will be an array of parts. Parts will be based on what
 		//onPartValueParseCallback returns. By default it should be all html
 		//fragments. The value will split on Block Elements.
+		setTimeout(()=> this.setState({value}), 1);
+	},
+
+
+	onChangeInput () {
+		let {refs: {value}} = this;
+		value = React.findDOMNode(value).value;
 		this.setState({value});
 	},
 
 	render () {
 		let {value} = this.state || {};
 
+		if (Array.isArray(value)) {
+			value = value.join('');
+		}
+
 		return (
 			<div>
-				<Editor ref="editor" onChange={this.onChange}/>
+				<Editor ref="editor" onChange={this.onChange} value={value} onBlur={this.onChange}/>
 				<div>Value Raw:</div>
-				<textarea style={{width: '100%', height: 100}} value={value}/>
+				<textarea ref="value" style={{width: '100%'}} value={value} onChange={this.onChangeInput}/>
 				<div>
 					Value (in dom):<hr/>
 					<div dangerouslySetInnerHTML={{__html: value}}/>
