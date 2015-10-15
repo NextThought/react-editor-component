@@ -49,6 +49,7 @@ export default React.createClass({
 	onFocus () {
 		let editor = this.getEditor();
 		let hasFocus = editor.hasSelection();
+
 		console.debug('Asked to focus. Does it currently have it?', hasFocus);
 
 		if (!hasFocus) {
@@ -58,9 +59,14 @@ export default React.createClass({
 	},
 
 
+	onBlur () {
+		this.getEditor().wasInteractedWith();
+	},
+
+
 	render () {
 		return (
-			<div {...this.props} contentEditable content={null} onFocus={this.onFocus}
+			<div {...this.props} contentEditable content={null} onFocus={this.onFocus} onBlur={this.onBlur}
 				dangerouslySetInnerHTML={{__html: this.props.content}}/>
 		);
 	}

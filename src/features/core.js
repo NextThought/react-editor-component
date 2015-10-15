@@ -69,8 +69,8 @@ export default {
 		let force = !this.hasSelection();
 
 		let schedual = force ?
-			fn=>fn(force) || 0 :
-			fn=>setTimeout(fn, 1000);
+			fn => (void fn(force)) || 0 :
+			fn => setTimeout(fn, 1000);
 
 		this[interactionTimeout] = schedual(this[update]);
 	},
