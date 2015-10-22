@@ -12,8 +12,18 @@ module.exports = function (grunt) {
 		pkg: pkgConfig,
 
 		karma: {
-			unit: {
+			options: {
 				configFile: 'karma.conf.js'
+			},
+			continuous: {
+				reporters: ['dots', 'junit'],
+				singleRun: true
+			},
+			unit: {},
+			dev: {
+				reporters: 'dots',
+				singleRun: false,
+				autoWatch: true
 			}
 		},
 
@@ -56,7 +66,12 @@ module.exports = function (grunt) {
 
 	//grunt.registerTask('docs',['jsdoc']);
 	grunt.registerTask('lint', ['eslint']);
-	grunt.registerTask('test', ['karma']);
 	grunt.registerTask('build', ['eslint', 'webpack']);
 	grunt.registerTask('default', ['eslint', 'webpack-dev-server:start']);
+	grunt.registerTask('test', function (target) {
+		var t = target || 'unit';
+		return grunt.task.run([
+			'karma:' + t
+		]);
+	});
 };
