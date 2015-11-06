@@ -52,6 +52,7 @@
     "load-grunt-tasks": "^3.1.0",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
+    "phantomjs": "^1.9.18",
     "webpack": "^1.8.4",
     "webpack-dev-server": "^1.8.0"
   }
