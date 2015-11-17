@@ -1,5 +1,4 @@
 import React from 'react';
-import cloneWithProps from 'react/lib/cloneWithProps';
 import cx from 'classnames';
 
 import FormatButton from './FormatButton';
@@ -10,12 +9,6 @@ export const REGIONS = {
 	EAST: 'east',
 	WEST: 'west'
 };
-
-
-//React.cloneElement perserves the owner and refs... I would like to preserve them too...
-//but, we need the context of the Editor (parent), and React is still passing context by
-//Owner instead of by Parent. Until that switch happens, this has to use 'cloneWithProps'
-const cloneElement = x => cloneWithProps(x);
 
 
 export default React.createClass({
@@ -68,7 +61,7 @@ export default React.createClass({
 		}
 
 		return React.Children.map(children,
-			x => x && this.isElementForRegion(x) && cloneElement(x)
+			x => x && this.isElementForRegion(x) && React.cloneElement(x)
 		);
 	},
 

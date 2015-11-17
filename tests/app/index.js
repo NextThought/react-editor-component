@@ -50,7 +50,9 @@ const Frame = React.createClass({
 
 		return (
 			<div>
-				<Editor ref="editor" onChange={this.onChange} value={value} onBlur={this.onChange}/>
+				<Editor ref="editor" onChange={this.onChange} value={value} onBlur={this.onChange}>
+					<Format format="underline">Foo!</Format>
+				</Editor>
 				<div>Value Raw:</div>
 				<textarea ref="value" style={{width: '100%'}} value={value} onChange={this.onChangeInput}/>
 				<div>
