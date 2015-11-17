@@ -25,7 +25,7 @@ export default React.createClass({
 	propTypes: {
 		defaultSet: React.PropTypes.bool,
 		region: React.PropTypes.any.isRequired,
-		children: React.PropTypes.array
+		children: React.PropTypes.any
 	},
 
 

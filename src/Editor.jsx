@@ -57,7 +57,7 @@ export default React.createClass({
 		className: React.PropTypes.string,
 
 
-		children: React.PropTypes.arrayOf(React.PropTypes.node)
+		children: React.PropTypes.any
 	},
 
 
