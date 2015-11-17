@@ -1,5 +1,10 @@
 import React from 'react';
 
+import debug from 'debug';
+
+const error = debug('react-editor-component:formatting:error');
+
+
 const FORMATS = [
 	'bold',
 	'italic',
@@ -56,7 +61,7 @@ export default {
 					.join(' ');
 
 			} catch (e) {
-				console.error(e.stack || e.message || e);
+				error(e.stack || e.message || e);
 			}
 		}
 
@@ -84,7 +89,7 @@ export default {
 		try {
 			document.execCommand(style);
 		} catch(e) {
-			console.error('No execCommand support?');
+			error('No execCommand support?');
 		}
 	}
 

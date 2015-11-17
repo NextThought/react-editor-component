@@ -1,6 +1,11 @@
 /*global Range*/
 import ReactDOM from 'react-dom';
 
+import debug from 'debug';
+
+const error = debug('react-editor-component:selection:error');
+const log = debug('react-editor-component:selection');
+
 function isStartWithin (rangeA, rangeB, inclusive = true) {
 	//Comparing the startContainer of rangeB against the startContainer of rangeA:
 	let start = rangeA.compareBoundaryPoints(Range.START_TO_START, rangeB);
@@ -266,9 +271,9 @@ function parseNodePath (path, root, preupdateSnapshot) {
 
 
 		if (!nextNode) {
-			console.warn('%o does not have a child at %s', node, index);
+			error('%o does not have a child at %s', node, index);
 		} else if (tag && nextNode.nodeName !== tag) {
-			console.warn('%o is not what we expected. (%s)', nextNode, tag);
+			error('%o is not what we expected. (%s)', nextNode, tag);
 		}
 
 		node = nextNode;
@@ -306,11 +311,11 @@ function parseRange (rangeish, root) {
 	catch (e) {
 		//On some react updates, the content will shift in one div...
 		if (root && root.childNodes.length === 1) {
-			console.log('Root change?');
+			log('Root change?');
 			return parseRange(rangeish, root.firstChild);
 		}
 
-		console.log('Error: %s', e.message);
+		log('Error: %s', e.message);
 		return null;
 	}
 
@@ -337,7 +342,7 @@ export default {
 
 	getSelection (from) {
 		if (!window.getSelection) {
-			console.warn('Unsupported (Legacy) Selection Model');
+			error('Unsupported (Legacy) Selection Model');
 			return null;
 		}
 
@@ -390,14 +395,14 @@ export default {
 			try {
 				let {range} = savedRange;
 				if (range && !isRangeStillValid(range, node)) {
-					console.log('range wasn`t valid');
+					log('range wasn`t valid');
 					range = null;
 				}
 
 				sel.removeAllRanges();
 				sel.addRange(range || parseRange(savedRange, node));
 			} catch (e) {
-				console.error(e.stack || e.message || e);
+				error(e.stack || e.message || e);
 			}
 		}
 	},
@@ -408,7 +413,7 @@ export default {
 			return; //lets not be destructive.
 		}
 
-		console.debug('Clearing');
+		log('Clearing');
 		window.getSelection().removeAllRanges();
 	},
 

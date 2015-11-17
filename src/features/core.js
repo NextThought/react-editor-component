@@ -1,5 +1,7 @@
 import ReactDOM from 'react-dom';
 //import EventEmitter from 'events';
+import debug from 'debug';
+const log = debug('react-editor-component:core');
 
 function getStateClassResolvers (obj) {
 	let k = 'stateClassResolvers';
@@ -25,7 +27,7 @@ export default {
 
 		Object.keys(dict).forEach(x => {
 			if (x in handlers) {
-				//console.debug('Chaining %s handlers', x);
+				log('Chaining %s handlers', x);
 				let original = handlers[x],
 					chained = dict[x];
 
@@ -85,7 +87,7 @@ export default {
 			let prev = getVal(this.state.previousValue);
 
 			if (prev !== curr || force) {
-				// console.debug('Notifying onChange, flush');
+				log('Notifying onChange, flush');
 				this.props.onChange(prev, curr);
 				this.setState({previousValue: curr});
 			}

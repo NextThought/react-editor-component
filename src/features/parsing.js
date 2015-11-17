@@ -1,3 +1,7 @@
+import debug from 'debug';
+
+const error = debug('react-editor-component:core:error');
+const log = debug('react-editor-component:core');
 
 const BR = /<br[^>]*\/?>/ig;
 const REGEX_INITIAL_CHAR = /\u200B|\u2060/ig; //used to identify and strip out
@@ -118,7 +122,7 @@ function prepareValue (node, onPrepareValueChunk) {
 			}
 		}
 		catch (er) {
-			console.warn('Oops, ' + er.message);
+			error('Oops, ' + er.message);
 		}
 	}
 
@@ -177,7 +181,7 @@ export default {
 		let state = this.state.current || null;
 
 		if (value !== current) {
-			console.debug('New Prop: "%s" "%s"', value, current, state);
+			log('New Prop: "%s" "%s"', value, current, state);
 			this.applyValue(value);
 		}
 	},

@@ -1,4 +1,7 @@
 import 'babel/polyfill';
+import logger from 'debug';
+logger.enable('react-editor-component:*');
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Editor from 'Editor';

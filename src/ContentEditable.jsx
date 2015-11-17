@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import debug from 'debug';
+
 import Mixin from './ToolMixin';
+
+const log = debug('react-editor-component:ContentEditable');
 
 export default React.createClass({
 	displayName: 'ContentEditable',
@@ -50,7 +54,7 @@ export default React.createClass({
 		let editor = this.getEditor();
 		let hasFocus = editor.hasSelection();
 
-		console.debug('Asked to focus. Does it currently have it?', hasFocus);
+		log('Asked to focus. Does it currently have it?', hasFocus);
 
 		if (!hasFocus) {
 			editor.putCursorAtTheEnd();
