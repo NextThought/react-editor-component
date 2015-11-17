@@ -18,12 +18,21 @@ export default React.createClass({
 	},
 
 
-	render () {
-		let {format = '_'} = this.props;
-		let code = format.charAt(0).toUpperCase();
+	onClick (e) {
+		const {props: {format = '_'}} = this;
+		e.preventDefault();
+		e.stopPropagation();
 
-		let props = {
-			onClick: this.context.setFormat,
+		this.context.setFormat(format);
+	},
+
+
+	render () {
+		const {format = '_'} = this.props;
+		const code = format.charAt(0).toUpperCase();
+
+		const props = {
+			onClick: this.onClick,
 			'data-format': format
 		};
 

@@ -69,16 +69,12 @@ export default {
 	},
 
 
-	onSetFormat (e) {
-		e.preventDefault();
-		e.stopPropagation();
-
+	onSetFormat (style) {
 		let sel = this[SAVED_SELECTION];
 		if (sel) {
 			this.restoreSelection(sel);
 		}
 
-		let style = e.target.getAttribute('data-format');
 		this.applyFormat(style);
 
 		this.wasInteractedWith();
