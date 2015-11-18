@@ -83,17 +83,15 @@ module.exports = function (config) {
 
 
 		webpackServer: {
-			// quiet: true,
-			stats: stat
+			stats: 'errors-only'
 		},
 
 		webpack: {
-			// quiet: true,
 			cache: true,
 			debug: true,
 			devtool: 'inline-source-map',
 
-			stats: stat,
+			stats: 'errors-only',
 
 			resolve: {
 				root: path.resolve(__dirname, 'src'),
