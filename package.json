@@ -45,7 +45,7 @@
     "grunt-eslint": ">=12.0.0",
     "grunt-karma": "^0.12.0",
     "grunt-webpack": "^1.0.8",
-    "isparta-loader": "^1.0.0",
+    "isparta-instrumenter-loader": "^1.0.0",
     "jasmine-core": "^2.2.0",
     "karma": "^0.13.15",
     "karma-coverage": "^0.5.3",

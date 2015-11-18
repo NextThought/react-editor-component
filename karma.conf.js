@@ -97,20 +97,25 @@ module.exports = function (config) {
 			},
 
 			module: {
+				preLoaders: [
+					{
+						test: /\.js(x)?$/,
+						loader: 'isparta-instrumenter',
+						exclude: [
+							/node_modules/i,
+							/__test__/i,
+							/tests\/.*/i
+						]
+					}
+				],
 				loaders: [
 					{ test: /\.json$/, loader: 'json' },
 					{
 						test: /\.js(x)?$/,
 						loader: 'babel',
 						exclude:[
-							/node_modules/,
-							path.resolve('src/')
+							/node_modules/
 						]
-					},
-					{
-						test: /\.js(x)?$/,
-						loader: 'isparta',
-						include: path.resolve('src/')
 					}
 				]
 			}
