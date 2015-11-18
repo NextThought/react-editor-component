@@ -83,12 +83,12 @@ module.exports = function (config) {
 
 
 		webpackServer: {
-			stats: stat,
-			quiet: true
+			// quiet: true,
+			stats: stat
 		},
 
 		webpack: {
-			quiet: true,
+			// quiet: true,
 			cache: true,
 			debug: true,
 			devtool: 'inline-source-map',
