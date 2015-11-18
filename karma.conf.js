@@ -50,16 +50,29 @@ module.exports = function (config) {
 		browsers: ['PhantomJS'],
 
 
-		//coverageReporter: { type: 'html', dir: 'reports/coverage/' },
+		coverageReporter: {
+			dir: 'reports/coverage/',
+			reporters: [
+				{ type: 'html', subdir: 'html' },
+				{ type: 'lcov', subdir: 'lcov' },
+				{ type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
+				{ type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },
+				{ type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
+				{ type: 'text', subdir: '.', file: 'text.txt' },
+				{ type: 'text-summary', subdir: '.', file: 'text-summary.txt' }
+			]
+		},
 
 		htmlReporter: {
-			//templatePath: __dirname+'/jasmine_template.html',
-			outputDir: 'reports/test-results'
+			outputDir: 'reports',
+			reportName: 'test-results'
 		},
 
 		junitReporter: {
-			outputFile: 'reports/test-results.xml',
-			suite: ''
+			outputDir: 'reports/test-results/',
+			outputFile: 'index.xml',
+			suite: 'nti.lib.ranges',
+			useBrowserName: false
 		},
 
 
@@ -89,8 +102,20 @@ module.exports = function (config) {
 
 			module: {
 				loaders: [
-					{ test: /\.js(x?)$/, /*exclude: /node_modules/,*/ loader: 'babel' },
-					{ test: /\.json$/, loader: 'json' }
+					{ test: /\.json$/, loader: 'json' },
+					{
+						test: /\.js(x)?$/,
+						loader: 'babel',
+						exclude:[
+							/node_modules/,
+							path.resolve('src/')
+						]
+					},
+					{
+						test: /\.js(x)?$/,
+						loader: 'isparta',
+						include: path.resolve('src/')
+					}
 				]
 			}
 		}

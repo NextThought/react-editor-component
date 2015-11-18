@@ -5,7 +5,7 @@
   "main": "./index.js",
   "dist": "dist/",
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test:continuous"
   },
   "repository": {
     "type": "git",
@@ -41,8 +41,11 @@
     "grunt-eslint": ">=12.0.0",
     "grunt-karma": "^0.12.0",
     "grunt-webpack": "^1.0.8",
+    "isparta-loader": "^1.0.0",
     "jasmine-core": "^2.2.0",
-    "karma": "^0.13.0",
+    "karma": "^0.13.15",
+    "karma-coverage": "^0.5.3",
+    "karma-html-reporter": "^0.2.7",
     "karma-jasmine": "^0.3.5",
     "karma-junit-reporter": "^0.3.8",
     "karma-mocha-reporter": "^1.0.2",
@@ -51,9 +54,9 @@
     "karma-sourcemap-loader": "^0.3.4",
     "karma-webpack": "^1.5.0",
     "load-grunt-tasks": "^3.1.0",
+    "phantomjs": "^1.9.18",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
-    "phantomjs": "^1.9.18",
     "webpack": "^1.8.4",
     "webpack-dev-server": "^1.8.0"
   }

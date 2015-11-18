@@ -1,4 +1,6 @@
 /*eslint no-var:0, no-extra-strict: 0, strict: 0*/
+require('babel/polyfill');
+
 (function () {
 	'use strict';
 	var Ap = Array.prototype;

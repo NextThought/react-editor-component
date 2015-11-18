@@ -16,7 +16,8 @@ module.exports = function (grunt) {
 				configFile: 'karma.conf.js'
 			},
 			continuous: {
-				reporters: ['dots', 'junit'],
+				// browsers: ['PhantomJS', 'Firefox'],
+				reporters: ['dots', 'html', 'junit', 'coverage'],
 				singleRun: true
 			},
 			unit: {},
