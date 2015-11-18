@@ -8,7 +8,7 @@ module.exports = function (config) {
 
 		files: [
 			'tests/helpers/**/*.js',
-			'tests/specs/**/*.js'
+			'tests/main.js'
 		],
 
 		preprocessors: {
