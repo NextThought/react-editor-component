@@ -7,8 +7,7 @@ cache:
 
 node_js:
   - "stable"
-  # - "5.0"
-  # - "0.12"
+  - "0.12"
 before_script:
   - npm install grunt-cli karma-cli -g
 script: grunt test

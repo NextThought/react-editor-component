@@ -1,5 +1,5 @@
 
-import Editor from 'Editor.asd';
+import Editor from 'Editor';
 
 describe('dummy spec', ()=> {
 
