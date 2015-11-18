@@ -1,4 +1,4 @@
-#A rich text editor component, for ReactJS
+#A rich text editor component, for ReactJS [![Build Status](https://travis-ci.org/NextThought/react-editor-component.svg?branch=master)](https://travis-ci.org/NextThought/react-editor-component)
 
 ---
 Progress:
