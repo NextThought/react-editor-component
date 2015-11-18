@@ -1,23 +1,5 @@
 /*eslint no-var: 0*/
 var path = require('path');
-var stat = {
-	version: false,
-	hash: false,
-	timings: false,
-	assets: false,
-	chunks: false,
-	chunkModules: false,
-	chunkOrigins: false,
-	modules: false,
-	cached: false,
-	cachedAssets: false,
-	showChildren: false,
-	source: false,
-
-	colors: true,
-	reasons: true,
-	errorDetails: true
-};
 
 module.exports = function (config) {
 	config.set({
@@ -71,7 +53,7 @@ module.exports = function (config) {
 		junitReporter: {
 			outputDir: 'reports/test-results/',
 			outputFile: 'index.xml',
-			suite: 'nti.lib.ranges',
+			suite: 'react-editor-component',
 			useBrowserName: false
 		},
 
@@ -83,9 +65,25 @@ module.exports = function (config) {
 
 
 		webpackServer: {
-			// quiet: true,
 			noInfo: true,
-			stats: stat
+			stats: {
+				version: false,
+				hash: false,
+				timings: false,
+				assets: false,
+				chunks: false,
+				chunkModules: false,
+				chunkOrigins: false,
+				modules: false,
+				cached: false,
+				cachedAssets: false,
+				showChildren: false,
+				source: false,
+
+				colors: true,
+				reasons: true,
+				errorDetails: true
+			}
 		},
 
 		webpack: {
