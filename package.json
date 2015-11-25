@@ -3,6 +3,10 @@
   "version": "0.3.1",
   "description": "A Rich Text Editor for ReactJS",
   "main": "./index.js",
+  "engines": {
+      "node": ">=5.0.0"
+      "npm": ">=3.3.0"
+  },
   "dist": "dist/",
   "scripts": {
     "test": "grunt test:continuous"
