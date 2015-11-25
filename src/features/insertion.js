@@ -44,9 +44,9 @@ export default {
 				range.insertNode(el);
 			}
 
-			let {parentNode} = el;
+			const {parentNode, childNodes: {length}} = el;
 
-			for (let i = 0, {length} = el.childNodes; i < length; i++) {
+			for (let i = 0; i < length; i++) {
 				parentNode.insertBefore(el.firstChild, el);
 			}
 
