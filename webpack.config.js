@@ -1,10 +1,12 @@
 /*eslint no-var: 0*/
 var path = require('path');
 exports = module.exports = {
-	entry: '<%= pkg.main %>',
+	entry: './src/index.js',
 	output: {
-		path: '<%= pkg.dist %>',
-		filename: 'index.js'
+		path: 'lib/',
+		filename: 'index.js',
+		library: true,
+		libraryTarget: 'commonjs2'
 	},
 
 	cache: true,
@@ -23,6 +25,16 @@ exports = module.exports = {
 		extensions: ['', '.jsx', '.js']
 	},
 
+
+	externals: [
+		{
+			'classnames': true,
+			'debug': true,
+			'fbjs': true,
+			'react': true,
+			'react-dom': true
+		}
+	],
 
 	module: {
 		loaders: [

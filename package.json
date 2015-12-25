@@ -1,15 +1,18 @@
 {
   "name": "react-editor-component",
   "version": "0.3.1",
+  "author": "nextthought",
   "description": "A Rich Text Editor for ReactJS",
-  "main": "./index.js",
+  "main": "./lib/index.js",
+  "files": [
+    "lib"
+  ],
   "engines": {
       "node": ">=5.0.0",
       "npm": ">=3.3.0"
   },
-  "dist": "dist/",
   "scripts": {
-    "test": "grunt test:continuous"
+    "test": "karma start --single-run --reporters dots,html,junit,coverage"
   },
   "repository": {
     "type": "git",
@@ -23,7 +26,6 @@
     "editor",
     "component"
   ],
-  "author": "nextthought",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/NextThought/react-editor-component/issues"
