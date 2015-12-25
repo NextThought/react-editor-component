@@ -1,6 +1,6 @@
 {
   "name": "react-editor-component",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "author": "nextthought",
   "description": "A Rich Text Editor for ReactJS",
   "main": "./lib/index.js",
@@ -8,8 +8,8 @@
     "lib"
   ],
   "engines": {
-      "node": ">=5.0.0",
-      "npm": ">=3.3.0"
+    "node": ">=5.0.0",
+    "npm": ">=3.3.0"
   },
   "scripts": {
     "test": "karma start --single-run --reporters dots,html,junit,coverage"
