@@ -14,7 +14,7 @@
   "scripts": {
     "test": "karma start --single-run --reporters dots,html,junit,coverage",
     "start": "make check && webpack-dev-server -d --config ./webpack.config.test.js  --host 0.0.0.0 --port 8000 --watch --progress --inline --info false --content-base ./tests/app/ || true",
-    "prepublish": "karma start --single-run && make"
+    "prepublish": "make test && make"
   },
   "repository": {
     "type": "git",
