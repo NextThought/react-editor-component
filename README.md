@@ -22,18 +22,18 @@ Please do not checkin dist bundles. This project is intended to be included into
 
 ##### Setup:
 ```bash
-$ npm install grunt-cli karma-cli --global
+$ npm install karma-cli --global
 $ npm install
 ```
 
 ##### Testing:
 ```bash
-$ grunt test
+$ make test
 ```
 
 ##### Running the test harness app:
 ```bash
-$ grunt
+$ npm start
 ```
 
 
