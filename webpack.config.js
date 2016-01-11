@@ -27,13 +27,9 @@ exports = module.exports = {
 
 
 	externals: [
-		{
-			'classnames': true,
-			'debug': true,
-			'fbjs': true,
-			'react': true,
-			'react-dom': true
-		}
+		// Every non-relative module is external
+		// abc -> require("abc")
+		/^[a-z\-0-9]+/i
 	],
 
 	module: {
