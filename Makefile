@@ -8,7 +8,7 @@ LIBDIR = lib
 CC=webpack
 C_FLAGS=--progress --cache --bail
 
-all: node_modules clean check test build
+all: node_modules build
 
 node_modules: package.json
 	@rm -rf node_modules

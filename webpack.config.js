@@ -6,7 +6,9 @@ exports = module.exports = {
 		path: 'lib/',
 		filename: 'index.js',
 		library: true,
-		libraryTarget: 'commonjs2'
+		libraryTarget: 'commonjs2',
+		devtoolModuleFilenameTemplate: 'editor:///[resource-path]',
+		devtoolFallbackModuleFilenameTemplate: 'editor:///[resource-path]?[hash]'
 	},
 
 	cache: true,
