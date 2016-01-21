@@ -1,5 +1,4 @@
 import React from 'react';
-import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import Core from './features/core';
 import Formatting from './features/formatting';
@@ -63,8 +62,8 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			onChange: emptyFunction,
-			onBlur: emptyFunction
+			onChange: () => {},
+			onBlur: () => {}
 		};
 	},
 
