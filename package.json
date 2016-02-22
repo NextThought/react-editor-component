@@ -1,6 +1,6 @@
 {
   "name": "react-editor-component",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "nextthought",
   "description": "A Rich Text Editor for ReactJS",
   "main": "./lib/index.js",
