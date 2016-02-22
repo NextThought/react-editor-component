@@ -269,7 +269,6 @@ function parseNodePath (path, root, preupdateSnapshot) {
 
 
 
-
 		if (!nextNode) {
 			error('%o does not have a child at %s', node, index);
 		} else if (tag && nextNode.nodeName !== tag) {

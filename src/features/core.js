@@ -98,7 +98,7 @@ export default {
 
 
 	getEditorNode () {
-		let {editor} = this.refs;
+		let {editor} = this;
 		return editor && editor.isMounted() && ReactDOM.findDOMNode(editor);
 	},
 

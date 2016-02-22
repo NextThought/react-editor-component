@@ -1,6 +1,18 @@
 {
 	"extends": "eslint:recommended",
 	"parser": "babel-eslint",
+
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"experimentalObjectRestSpread": true,
+			"impliedStrict": true,
+			"globalReturn": false,
+			"jsx": true
+		}
+	},
+
 	"env": {
 		"node": true,
 		"browser": true,
@@ -12,33 +24,6 @@
 		"react"
 	],
 
-	"ecmaFeatures": {
-		"arrowFunctions": true,
-		"binaryLiterals": true,
-		"blockBindings": true,
-		"classes": true,
-		"defaultParams": true,
-		"destructuring": true,
-		"experimentalObjectRestSpread": true,
-		"forOf": true,
-		"generators": false,
-		"modules": true,
-		"newTarget": true,
-		"objectLiteralComputedProperties": true,
-		"objectLiteralDuplicateProperties": true,
-		"objectLiteralShorthandMethods": true,
-		"objectLiteralShorthandProperties": true,
-		"octalLiterals": true,
-		"regexUFlag": false,
-		"regexYFlag": false,
-		"spread": true,
-		"superInFunctions": true,
-		"templateStrings": true,
-		"unicodeCodePointEscapes": true,
-		"globalReturn": false,
-		"jsx": true
-	},
-
 	"rules": {
 		"camelcase": [2, {"properties": "always"}],
 		"consistent-return": 0,
@@ -49,8 +34,9 @@
 		"new-cap": 0,
 		"no-bitwise": 2,
 		"no-caller": 2,
-		"no-console": 0,
+		"no-console": 2,
 		"no-extend-native": 2,
+		"no-multiple-empty-lines": [1, {"max": 3, "maxBOF": 0, "maxEOF": 1}],
 		"no-new": 2,
 		"no-shadow": [1, {"builtinGlobals": false, "hoist": "never"}],
 		"no-throw-literal": 2,
@@ -70,17 +56,19 @@
 
 		"jsx-quotes": [1, "prefer-double"],
 
-		"react/display-name": 1,
+		"react/display-name": [1, { "ignoreTranspilerName": false }],
 		"react/jsx-boolean-value": 1,
 		"react/jsx-no-undef": 1,
 		"react/jsx-sort-props": 0,
 		"react/jsx-uses-react": 1,
 		"react/jsx-uses-vars": 1,
+		"react/no-deprecated": [1, {"react": "0.14.7"}],
 		"react/no-did-mount-set-state": 1,
 		"react/no-did-update-set-state": 1,
-		"react/no-multi-comp": 1,
+		"react/no-multi-comp": 0,
 		"react/no-unknown-property": 1,
-		"react/prop-types": 2,
+		"react/no-string-refs": 1,
+		"react/prop-types": 1,
 		"react/react-in-jsx-scope": 2,
 		"react/self-closing-comp": 2,
 		"react/wrap-multilines": 2

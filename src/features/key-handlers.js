@@ -1,4 +1,3 @@
-
 const onKeyPress = 'key-handlers:OnKeyPressHandler';//Not a Symbol because Symbols cannot be enumerated.
 
 export default {

@@ -1,4 +1,3 @@
-
 import Editor from 'Editor';
 
 describe('dummy spec', ()=> {

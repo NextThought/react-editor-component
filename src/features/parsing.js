@@ -232,7 +232,7 @@ export default {
 
 			if (lastType === current && current === 'string') {
 				//start new string
-				output[output.length - 1] += `<br/>` + v;
+				output[output.length - 1] += `<br/>${v}`;
 				continue;
 			}
 

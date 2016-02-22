@@ -96,7 +96,7 @@ export default React.createClass({
 				<Toolbar region={REGIONS.EAST} children={children}/>
 				<Toolbar region={REGIONS.WEST} children={children}/>
 
-				<ContentEditable className="editor-pane center" content={this.state.content} ref="editor" tabIndex="0"/>
+				<ContentEditable className="editor-pane center" content={this.state.content} ref={c => this.editor = c} tabIndex="0"/>
 
 				<Toolbar region={REGIONS.SOUTH} children={children} defaultSet={basicView}/>
 			</div>
