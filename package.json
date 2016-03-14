@@ -14,7 +14,7 @@
   "scripts": {
     "test": "karma start --single-run --reporters dots,html,junit,coverage",
     "start": "make check && webpack-dev-server -d --config ./webpack.config.test.js  --host 0.0.0.0 --port 8000 --watch --progress --inline --info false --content-base ./tests/app/ || true",
-    "prepublish": "make"
+    "prepublish": "not-in-install && make || in-install"
   },
   "repository": {
     "type": "git",
@@ -49,6 +49,7 @@
     "babel-preset-stage-2": "^6.1.0",
     "eslint": "^2.2.0",
     "eslint-plugin-react": "^4.0.0",
+    "in-publish": "^2.0.0",
     "isparta-instrumenter-loader": "^1.0.0",
     "jasmine-core": "^2.2.0",
     "karma": "^0.13.15",
