@@ -12,15 +12,11 @@ exports = module.exports = {
 	},
 
 	cache: true,
-	debug: true,
 	devtool: 'source-map',
 
 
 	target: 'web',
-	stats: {
-		colors: true,
-		reasons: true
-	},
+
 
 	resolve: {
 		root: path.resolve(__dirname, 'src'),
