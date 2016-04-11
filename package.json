@@ -14,7 +14,9 @@
   "scripts": {
     "test": "karma start --single-run --reporters dots,html,junit,coverage",
     "start": "make check && webpack-dev-server -d --config ./webpack.config.test.js  --host 0.0.0.0 --port 8000 --watch --progress --inline --info false --content-base ./tests/app/ || true",
-    "prepublish": "not-in-install && make || in-install"
+    "prepublish": "not-in-install && make || in-install",
+    "bump": "npm version",
+    "postbump": "git push --all && npm publish"
   },
   "repository": {
     "type": "git",
